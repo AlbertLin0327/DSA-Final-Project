@@ -1,0 +1,8 @@
+From: Alexis
+Date: 6 February 2012 at 11:03
+Message-ID: 8807
+Subject: Soft reference 
+To: Yvette
+Content:
+A soft reference is one of the strengths or levels of 'non strong' reference defined in the Java programming language, the others being weak and phantom. The garbage collector will always collect weakly referenced objects, but will only collect softly referenced objects when its algorithms decide that memory is low enough to warrant it. Soft and weak references provide two quasi-priorities for non-strongly referenced objects. Soft references may be used, for example, when writing a cache: weakly referenced objects may disappear too quickly to make the cache useful. 
+I read the paragraph on http://wikipedia.org

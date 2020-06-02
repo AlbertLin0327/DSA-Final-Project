@@ -1,0 +1,8 @@
+From: Mark
+Date: 13 April 2012 at 16:38
+Message-ID: 9896
+Subject: Lossy data conversion 
+To: Betty
+Content:
+A lossy data conversion method is one where converting data between one storage format and another displays data in a form that is "close enough" to be useful, but may differ in some ways from the original. This type of conversion is used frequently between software packages that rely on different storage techniques. In many cases, a software package such as Microsoft Word will enable a document stored in one format to be saved as another, in particular HTML. The document saved in the lossy format may look identical, but the conversion can also cause some loss of fidelity or functionality. There are three basic types of lossy data conversion: Graphic data (images) is often converted from one data storage format to another. Such conversions are usually described separately as either lossy data compression or lossless data compression.
+I read the paragraph on http://wikipedia.org

@@ -1,0 +1,8 @@
+From: Stuart
+Date: 2 January 2010 at 13:16
+Message-ID: 6536
+Subject: Channel-state duality 
+To: Andrew
+Content:
+In quantum information theory, the channel-state duality refers to the correspondence between quantum channels and quantum states (described by density matrices). Phrased differently, the duality is the isomorphism between completely positive maps (channels) from A to Cnn, where A is a C*-algebra and Cnn denotes the nn complex entries, and positive linear functionals (states) on the tensor product Let H1 and H2 be (finite dimensional) Hilbert spaces. The family of linear operators acting on Hi will be denoted by L(Hi). Consider two quantum systems, indexed by 1 and 2, whose states are density matrices in L(Hi) respectively. A quantum channel, in the Schrdinger picture, is a completely positive (CP for short) linear map that takes a state of system 1 to a state of system 2. Next we describe the dual state corresponding to . Let Ei j denote the matrix unit whose ij-th entry is 1 and zero elsewhere. The (operator) matrix is called the Choi matrix of . By Choi's theorem on completely positive maps,  is CP if and only if  is positive (semidefinite). One can view  as a density matrix, and therefore the state dual to . The duality between channels and states refers to the map a linear bijection. This map is also called Jamiokowski isomorphism or ChoiJamiokowski isomorphism.
+I read the paragraph on http://wikipedia.org

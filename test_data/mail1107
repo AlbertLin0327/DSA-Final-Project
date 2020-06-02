@@ -1,0 +1,8 @@
+From: Emily
+Date: 3 June 2012 at 03:04
+Message-ID: 1107
+Subject: Salstat 
+To: Tim
+Content:
+Salstatis a free software application for the statistical analysis of numeric data with an emphasis on ease-of-use. using both a graphical user interface and command line interface, it can perform all sorts of analyses including descriptive statistics and a range of inferential tests (both parametric and nonparametric). It is is written in the Python language and works on any platform that supports Python, NumPy, SciPy, and wxPython. The most recent release was in 2003 but there are plans to update it with new tests, better input and output options, an integrated file system and an improved interface based upon what users need.
+I read the paragraph on http://wikipedia.org

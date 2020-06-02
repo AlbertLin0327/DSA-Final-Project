@@ -1,0 +1,8 @@
+From: Alfred
+Date: 29 July 2011 at 08:19
+Message-ID: 8791
+Subject: SASDK 
+To: Carlos
+Content:
+The SASDK is Microsoft's Speech Application SDK. It is used to create telephony applications as well as multimodal web applications. It complies with the SALT XML standard, unlike Microsoft's earlier endeavors. The SASDK is used to create Web-based applications only. It can be used to create a single application with both a web interface and a telephony interface.[1] It also includes a speech add-in for Internet Explorer that supports Speech Application Language Tags (SALT) 1.0. 
+I read the paragraph on http://wikipedia.org

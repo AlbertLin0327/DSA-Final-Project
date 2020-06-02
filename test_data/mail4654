@@ -1,0 +1,8 @@
+From: Isabella
+Date: 11 May 2011 at 09:16
+Message-ID: 4654
+Subject: OpenAIR 
+To: Crystal
+Content:
+OpenAIR is a message routing and communication protocol for artificial intelligence systems that has been gaining in popularity in recent years (2006)[citation needed]. The protocol is managed by Mindmakers, and is described on their site in the following manner: "OpenAIR is a routing and communication protocol based on a publish-subscribe architecture. It is intended to be the "glue" that allows numerous A.I. researchers to share code more effectively  "AIR to share". It is a definition or a blueprint of the "post office and mail delivery system" for distributed, multi-module systems. OpenAIR provides a core foundation upon which subsequent markup languages and semantics can be based, for e.g. gesture recognition and generation, computer vision, hardware-software interfacing etc; for a recent example see CVML."[1] OpenAIR was created to allow software components that serve their own purpose to communicate with each other in order to produce large scale, overall behavior of an intelligent system. A simple example would be to have a speech recognition system, and a speech synthesizer communicate with an expert system through OpenAIR messages, to create a system that can hear and answer various questions through spoken dialogue.
+I read the paragraph on http://wikipedia.org

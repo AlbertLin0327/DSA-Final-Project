@@ -1,0 +1,8 @@
+From: Fannie
+Date: 20 July 2010 at 21:25
+Message-ID: 6360
+Subject: MAC-Forced Forwarding 
+To: Cheryl
+Content:
+MAC-Forced Forwarding (MACFF) is used to control unwanted broadcast traffic and host-to-host communication. This is achieved by directing network traffic from hosts located on the same subnet but at different locations to an upstream gateway device. This provides security at Layer 2 since no traffic is able to pass directly between the hosts. MACFF is suitable for Ethernet networks where a layer 2 bridging device, known as an Ethernet Access Node (EAN), connects Access Routers to their clients. MACFF is configured on the EANs. MACFF is described in RFC 4562, MAC-Forced Forwarding: A Method for Subscriber Separation on an Ethernet Access Network. Allied Telesis switches implement MACFF[1] using DHCP snooping to maintain a database of the hosts that appear on each switch port. When a host tries to access the network through a switch port, DHCP snooping checks the hosts IP address against the database to ensure that the host is valid. MACFF then uses DHCP snooping to check whether the host has a gateway Access Router. If it does, MACFF uses a form of Proxy ARP to reply to any ARP requests, giving the router's MAC address. This forces the host to send all traffic to the router, even traffic destined to a host in the same subnet as the source. The router receives the traffic and makes forwarding decisions based on a set of forwarding rules, typically a QoS policy or a set of filters.
+I read the paragraph on http://wikipedia.org

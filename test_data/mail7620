@@ -1,0 +1,8 @@
+From: Laura
+Date: 9 June 2012 at 19:38
+Message-ID: 7620
+Subject: SIC/XE 
+To: Carol
+Content:
+No reason has been cited for the Wikify tag on this article.You can insert a reason using the |reason= parameter, like this: {{Wikify|reason=Your reason here}} SIC stands for Simplified Instructional Computer and is primarily used by Computer Science students while learning how to program an assembler. SIC/XE,(the XE stands for Extra Equipment), contains an extra format, format 4. For the XE version of SIC (SIC/XE) there are 5 registers, each 24 bits in length: 1) A -> register 0: Accumulator; used for arithmetic operations.[1] 2) X -> register 1: Index register; used for addressing.[2] 3) L -> register 2: Linkage register; jump to subroutine (JSUB) instruction stores the return address in this register.[3] 4) B -> register 3: Base register; used for addressing.[4] 5) S -> register 4: General working register.[5] 6) T -> register 5: General working register.[6] 7) F -> register 6: Floating-point accumulator which is 48 bits.[7] 8) * register 7 is used for behind the scene storage, not to be used by assembler or programmer.[8] 9) PC -> register 8: Program Counter (PC); contains the address of the next instruction to be fetched for execution.[9] 10) SW -> register 9: Status word; contains a variety of information, including a Condition Code (CC).[10]
+I read the paragraph on http://wikipedia.org

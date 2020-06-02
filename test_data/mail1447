@@ -1,0 +1,8 @@
+From: Wynne
+Date: 9 April 2012 at 14:08
+Message-ID: 1447
+Subject: Fillet (mechanics) 
+To: Stacy
+Content:
+In mechanical engineering, a fillet (play/flt/) is a concave easing of an interior corner of a part design. A rounding of an exterior corner is called a "round" or a "chamfer".[1] Fillets can be quickly designed onto parts using 3D solid modeling engineering CAD software by invoking the function and picking edges of interest. Once these features are included in the CAD design of a part, they are often manufactured automatically using computer-numerical control. Different packages use different names for the same operations. CATIA, Vectorworks, Autodesk Inventor and Solidworks refer to both concave and convex rounded edges as fillets, while referring to angled cuts of edges and concave corners as chamfers. Unigraphics and CADKEY refer to concave and convex rounded edges as blends. Pro/Engineer refers to rounded edges simply as rounds. Other 3D solid modeling software programs outside of engineering, such as gameSpace, have similar functions. Smooth edges connecting two simple flat features are generally simple for a computer to create and fast for a human user to specify.
+I read the paragraph on http://wikipedia.org

@@ -1,0 +1,8 @@
+From: Kitty
+Date: 6 June 2012 at 23:45
+Message-ID: 6847
+Subject: Mattig formula 
+To: Bobby
+Content:
+Mattig's formula is one of the most important formulae in observational cosmology and extragalactic astronomy which gives relation between radial coordinate and redshift of a given source. It depends on the cosmological model one's using and is needed to calculate luminosity distance.[1] Derived by W. Mattig in a 1958 paper, the mathematical formulation of the relation is,[2] r_1 = \frac{c}{R_0 H_0} \frac{q_0z+(q_0-1)(-1+\sqrt{1+2q_0z})}{q_0^2(1+z)} Where, r_1=\frac{d_p}{R}=\frac{d_c}{R_0} is the radial coordinate distance (proper distance at present) of the source from the observer while d_p is the proper distance and d_c is the comoving distance. This equation is only valid if q_0 > 0. When q_0 \le 0 the value of r_1 cannot be calculated. From this radius we can calculate luminosity distance using the following formula, When q_0=0 we get another expression for luminosity distance using Taylor expansion, But in 1977 Terrell devised a formula which is valid for all q_0 \ge 0,
+I read the paragraph on http://wikipedia.org

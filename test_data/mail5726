@@ -1,0 +1,8 @@
+From: Andrea
+Date: 17 November 2011 at 16:58
+Message-ID: 5726
+Subject: Invex function 
+To: Debra
+Content:
+In vector calculus, an invex function is a differentiable function  from Rn to R for which there exists a vector valued function g such that for all x and u. Invex functions were introduced by Hanson [1] as a generalization of convex functions. Ben-Israel and Mond [2] provided a simple proof that a function is invex if and only if every stationary point is a global minimum. Hanson also showed that if the objective and the constraints of an optimization problem are invex with respect to the same function g(x,u), then the KarushKuhnTucker conditions are sufficient for a global minimum. A slight generalization of invex functions called Type 1 invex functions are the most general class of functions for which the KarushKuhnTucker conditions are necessary and sufficient for a global minimum [3]. S. K. Mishra and G. Giorgi, Invexity and optimization, Nonconvex optimization and Its Applications, Vol. 88, Springer-Verlag, Berlin, 2008.
+I read the paragraph on http://wikipedia.org

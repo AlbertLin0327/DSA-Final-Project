@@ -1,0 +1,8 @@
+From: Anita
+Date: 4 June 2012 at 12:27
+Message-ID: 7040
+Subject: Double digital option 
+To: Fiona
+Content:
+A double digital option is a particular variety of option (a financial derivative). At maturity, the payoff is 1 if the spot price of the underlying asset is between two numbers, the lower and upper strikes of the option; otherwise, it is 0. A double digital with lower strike K1 and upper strike K2 can be replicated by going long a digital option with strike K1 and short another digital option with strike K2. A thorough analysis of double digital options, also known as tunnels, rangebets and corridors can are available at binary options tunnel where the greeks are also available.
+I read the paragraph on http://wikipedia.org

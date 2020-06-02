@@ -1,0 +1,8 @@
+From: Elijah
+Date: 8 June 2012 at 13:33
+Message-ID: 9658
+Subject: Pythagorean prime 
+To: Ivan
+Content:
+A Pythagorean prime is a prime number of the form 4n+1. These are exactly the primes that can be the hypotenuse of a Pythagorean triangle. The first few Pythagorean primes are Fermat's theorem on sums of two squares states that these primes can be represented as sums of two squares uniquely (up to order), and that no other primes can be represented this way, aside from 2=12+12. Thus these primes (and 2) occur as norms of Gaussian integers, while other primes do not. The law of quadratic reciprocity says that if p and q are distinct odd primes, at least one of which is Pythagorean, then p is a quadratic residue mod q if and only if q is a quadratic residue mod p; by contrast, if neither p nor q is Pythagorean, then p is a quadratic residue mod q if and only if q is not a quadratic residue mod p. 1 is a quadratic residue mod p if and only if p is a Pythagorean prime (or 2). In the field Z/p with p a Pythagorean prime, the polynomial x^2 = -1 has two solutions.
+I read the paragraph on http://wikipedia.org

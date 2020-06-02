@@ -1,0 +1,8 @@
+From: Haley
+Date: 6 March 2011 at 05:18
+Message-ID: 6167
+Subject: Antenna tracking system 
+To: Natasha
+Content:
+An antenna tracking system tracks a primary antenna to follow a moving signal source, such as a communication satellite. A secondary antenna has a greater beam width than the primary antenna and receives the same tracking signal from the satellite. The primary antenna is tracked according to a predetermined search pattern which causes a variation in the signal amplitude depending upon the relative location of the satellite and the antenna position. The signal strength signals from the two antennas are input to a summation function which takes the difference of the two signals. The noise and signal variation component of the two signals is substantially the same and is therefore eliminated from the resulting difference signal. An antenna control unit utilizes the resulting difference signal to select the optimum signal strength for the particular step of the search pattern. This system is particularly applicable to high frequency communication channels in the higher (86 Ghz and above) frequency band which are subject to atmospheric distortion and noise.
+I read the paragraph on http://wikipedia.org

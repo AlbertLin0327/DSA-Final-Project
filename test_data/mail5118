@@ -1,0 +1,8 @@
+From: Corrine
+Date: 25 June 2011 at 10:59
+Message-ID: 5118
+Subject: Hiro (Robot) 
+To: Martin
+Content:
+A leg-less humanoid robot. Is a low cost 7.5M JPY humanoid robot manufactured by Kawada KK of Japan. Its servomotors have millimiter precision. It is primarily employed in R&D centers and universities. Runs real time Linux QNX in a 5ms loop. Application programming of movements is done via OpenHRP, a software maintaned by [General Robotix Inc.]. Hiro has a red push button to stop in case of emergency. The servomotors move commands are Point to Point mode. Once a move command has been sent from a given application to servomotors' controlling QNX module it is not possible to cancel or correct course to avoid potential collision. This makes operation with humans unsafe or precludes real-time force feed-back applications. Hiro does not handle move commands in a parallel mode. All commands are processed in serial mode.
+I read the paragraph on http://wikipedia.org

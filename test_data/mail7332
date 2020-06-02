@@ -1,0 +1,8 @@
+From: Edith
+Date: 15 February 2009 at 09:01
+Message-ID: 7332
+Subject: Modem script 
+To: Nathaniel
+Content:
+A modem script is a settings file that some software programs use to communicate with a modem. They are also known as CCL files (Connection Control Language files). Like a modem init string, modem scripts files provide modem configuration settings. Modem scripts go beyond init strings by providing an internal scripting language that script authors can use to tune the modem's response. Its main use with Terminal Emulators and Dialers.
+I read the paragraph on http://wikipedia.org

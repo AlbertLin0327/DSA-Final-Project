@@ -1,0 +1,8 @@
+From: Harry
+Date: 19 April 2012 at 19:09
+Message-ID: 3954
+Subject: Optional stopping theorem 
+To: Aimee
+Content:
+In probability theory, the optional stopping theorem (or Doob's optional sampling theorem) says that, under certain conditions, the expected value of a martingale at a stopping time is equal to the expected value of its initial value. One version of the theorem is given below: Let (X_n)_{n \geq 0} be a martingale and  a stopping time with respect to X. If one of the following conditions holds then \mathbb{E}X_{\tau}=\mathbb{E}X_0. Similarly, if (X_n)_{n \geq 0} is a submartingale or a supermartingale and the above conditions hold then for a submartingale, and for a supermartingale. Assume the conditions in the version given above and let X_t^\tau denote the stopped process. This is also a martingale (or a submartingale/supermartingale accordingly). Obviously it converges to X_\tau almost surely. Now writing the stopped process as X_t^\tau=X_1+\sum_{i=1}^{\tau \and t-1}(X_{i+1}-X_i) gives |X_t^\tau|\leq M where M=|X_1|+\sum_{i=1}^{\tau-1}|X_{i+1}-X_i|. Now by the monotone convergence theorem so since X_t^\tau\rightarrow X_\tau a.s., by the dominated convergence theorem \mathbb{E}X_\tau=\lim_{t\rightarrow\infty}\mathbb{E}X_t^\tau=\lim_{t\rightarrow\infty}\mathbb{E}X_1=\mathbb{E}X_1. Similarly, the appropriate inequality is reached for a submartingale/supermartingale by changing the middle equality to an inequality.
+I read the paragraph on http://wikipedia.org

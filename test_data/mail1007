@@ -1,0 +1,8 @@
+From: Arnold
+Date: 26 January 2012 at 15:41
+Message-ID: 1007
+Subject: Diffuse element method 
+To: Audrey
+Content:
+The diffuse element method (DEM) or simply Diffuse Approximation is a computer simulation technique used in engineering analysis. It is a meshfree method. The diffuse element method was developed by B. Nayroles, G. Touzot and Pierre Villon at the Universite de Technologie de Compiegne, in 1992. It is in concept rather similar to the much older smoothed particle hydrodynamics. In the paper they describe a "diffuse approximation method", a method for function approximation from a given set of points. In fact the method boils down to the well-known moving least squares for the particular case of a global approximation (using all available data points). Using this function approximation method, partial differential equations and thus fluid dynamic problems can be solved. For this, they coined the term Diffuse Element Method (DEM). Advantages over finite element methods are that DEM doesn't rely on a grid, and is more precise in the evaluation of the derivatives of the reconstructed functions.
+I read the paragraph on http://wikipedia.org

@@ -1,0 +1,8 @@
+From: Stewart
+Date: 9 March 2012 at 16:58
+Message-ID: 6821
+Subject: lxrun 
+To: Franklin
+Content:
+In Unix computing, lxrun is a compatibility layer to allow Linux binaries to run on UnixWare, SCO OpenServer and Solaris without recompilation. It was created by Mike Davidson. It has been an open source software project since 1997, and is available under the Mozilla Public License. Both SCO and Sun Microsystems began officially supporting lxrun in 1999. According to the official lxrun website, lxrun is now in "maintenance" mode, meaning that it is no longer being actively developed.[3] Reasons cited for the declining interest in lxrun include the wide availability of real Linux machines, and the availability of more capable emulation systems, such as SCO's Linux Kernel Personality (LKP), OpenSolaris BrandZ, and various virtual machine solutions. Newer Linux applications and host operating systems are not officially supported by lxrun. 
+I read the paragraph on http://wikipedia.org

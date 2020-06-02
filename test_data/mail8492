@@ -1,0 +1,8 @@
+From: Sean
+Date: 8 January 2012 at 22:48
+Message-ID: 8492
+Subject: Bs space 
+To: Winnie
+Content:
+In the mathematical field of functional analysis, the space bs consists of all infinite sequences (xi) of real or complex numbers such that is finite. The set of such sequences forms a normed space with the vector space operations defined componentwise, and the norm given by Furthermore, with respect to metric induced by this norm, bs is complete: it is a Banach space. The space of all sequences (xi) such that the series is convergent (possibly conditionally) is denoted by cs. This is a closed vector subspace of bs, and so is also a Banach space with the same norm. The space bs is isometrically isomorphic to the space of bounded sequences  via the mapping Furthermore, the space of convergent sequences c is the image of cs under T.
+I read the paragraph on http://wikipedia.org

@@ -1,0 +1,8 @@
+From: Tiffany
+Date: 9 February 2012 at 17:32
+Message-ID: 4636
+Subject: Caret notation 
+To: Geoffrey
+Content:
+Caret notation is a notation for unprintable control characters in ASCII encoding. The notation consists of a caret (^) followed by a capital letter; this digraph stands for the ASCII code that has the numerical value equivalent to the letter's numerical value. For example the EOT character with a value of 4 is represented as ^D because D is the 4th letter in the alphabet. The NUL character with a value of 0 is represented as ^@ (@ is the ASCII character before A). The DEL character with the value 127 is usually represented as ^?, because the ASCII '?' is before '@' and -1 is the same as 127 if masked to 7 bits. For a complete list of caret notation, see C0 and C1 control codes. Many computer systems allow you to enter a control character by holding down Ctrl and pressing the letter used in the caret notation. This is practical, because many control characters (e.g. EOT) cannot be entered directly from a keyboard. Although there are many ways to represent control characters, this correspondence between notation and typing makes the caret notation suitable for many applications. Caret notation is used in many programs, particularly Unix terminal drivers and text file viewers such as more and less. Acorn operating systems for the Atom, BBC Micro, Archimedes and later RISC OS machines use the vertical bar character | in place of the caret. e.g. |M (pronounced "control M") is the carriage return character, ASCII 13. || is the vertical bar character code 124, |? is character 127 as above and |! adds 128 to the code of the following character, so |!|? is character code 128+127 = 255.
+I read the paragraph on http://wikipedia.org

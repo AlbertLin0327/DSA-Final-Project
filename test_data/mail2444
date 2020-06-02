@@ -1,0 +1,8 @@
+From: Melissa
+Date: 3 November 2011 at 09:31
+Message-ID: 2444
+Subject: Covariance operator 
+To: Mavis
+Content:
+in probability theory, for a probability measure P on a Hilbert space H with inner product \langle \cdot,\cdot\rangle , the covariance of P is the bilinear form Cov:HHR given by for all x and y in H. The covariance operator C is then defined by (from the Riesz representation theorem, such operator exists if Cov is bounded). Since Cov is symmetric in its arguments, the covariance operator is self-adjoint (the infinite-dimensional analogy of the transposition symmetry in the finite-dimensional case). When P is a centred Gaussian measure, C is also a nuclear operator. In particular, it is a compact operator of trace class, that is, it has finite trace. Even more generally, for a probability measure P on a Banach space B, the covariance of P is the bilinear form on the algebraic dual B#, defined by where \langle x, z \rangle is now the value of the linear functional x on the element z. Quite similarly, the covariance function of a function-valued random element (in special cases called random process or random field) z is where z(x) is now the value of the function z at the point x, i.e., the value of the linear functional u \mapsto u(x) evaluated at z.
+I read the paragraph on http://wikipedia.org

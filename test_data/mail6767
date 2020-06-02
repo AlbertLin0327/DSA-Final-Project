@@ -1,0 +1,8 @@
+From: Sandra
+Date: 22 January 2012 at 05:33
+Message-ID: 6767
+Subject: Security Token Service 
+To: Debra
+Content:
+A Security Token Service is a software based web service or web site responsible for issuing security tokens. In a typical usage scenario, a client requests access to a secure software application. Instead of the application validating the client's identity itself, it redirects the client to an STS and passes the credentials. The STS verifies the credentials presented by the client, and then in response, it issues a security token that provides proof that the client has authenticated with the STS. Finally, the client is redirected back to the software application to which it originally attempted to gain access. This time it presents the security token. The software application verifies that the token originated from a trusted STS, and if so, allows entry.
+I read the paragraph on http://wikipedia.org

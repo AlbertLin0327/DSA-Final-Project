@@ -1,0 +1,8 @@
+From: Isabella
+Date: 13 May 2012 at 21:01
+Message-ID: 2539
+Subject: CNK operating system 
+To: Hank
+Content:
+CNK (for Compute Node Kernel) is the node level operating system for the IBM Blue Gene supercomputer.[1][2] CNK is a lightweight kernel that runs on each node and supports a single application running for a single user on that node. For the sake of efficient operation, the design of CNK was kept simple and minimal, and it was implemented in about 5,000 lines of C++ code.[1] Physical memory is statically mapped and the CNK neither needs nor provides scheduling or context switching, given that at each point it runs a single application for a single user.[1] By not allowing virtual memory or multi-tasking, the design of CNK aimed to devote as many cycles as possible to application processing.[2] CNK does not even implement file I/O on the compute node, but delegates that to dedicated I/O nodes.[2] However, the I/O nodes on the Blue Gene, do not run CNK but instead use a modified Linux-based kernel called INK (for I/O Node Kernel).[2]
+I read the paragraph on http://wikipedia.org

@@ -1,0 +1,8 @@
+From: Darcy
+Date: 23 December 2011 at 17:59
+Message-ID: 3896
+Subject: CLEAR Framework for Enterprise Architecture 
+To: Susan
+Content:
+CLEAR is an Enterprise Architecture meta-model, framework and method. CLEAR stands for Comprehensive, Landscaped, Enterprise Architecture Representation. CLEAR was developed by Atos Origin as a Enterprise Architecture framework, meta-model and method aiming at facilitating alignment between an Enterprise's business objectives and the technologies it deploys to realise them. CLEAR borrows heavily from the Zachman Framework for Enterprise Architecture and the TOGAF framework specification. CLEAR is divided into four landscapes which contain artefacts. These landscapes are: CLEAR's Services Oriented Alignment layer can be used to provide the specification for a Service-oriented architecture approach. The CLEAR meta-model contains the above landscapes and artefacts together with a Taxonomy and Ontology to provide traceability and consistency across the architecture. CLEAR contains an Information Technology Governance framework and processes for Enterprise Architecture. These are largely derived from the ITIL specification for service management. CLEAR contains a method for building the Enterprise Architecture itself. This is loosely based on the TOGAF ADM but is claimed as being more focused on the solution of business problem areas rather than on building the Architecture as an end in itself.
+I read the paragraph on http://wikipedia.org

@@ -1,0 +1,8 @@
+From: Miranda
+Date: 7 May 2012 at 06:52
+Message-ID: 6959
+Subject: Chu-Harrington limit 
+To: Solomon
+Content:
+The Chu-Harrington limit or Chu limit sets a lower limit on the Q factor for a small radio antenna. The definition of a small antenna is one that can fit inside a sphere \frac{\lambda }{2 \pi}. For a small antenna the Q is proportional to the reciprocal of the volume of a sphere that encloses it. In practice this means that there is a limit to the bandwidth of data that can be sent to and received from small antennas such as are used in mobile phones. Chu established the limit on Q as: Q = \frac{1}{(k^3 a^3)} + \frac{1}{(k a)} for a linear polarized antenna. k = \frac{2 \pi}{\lambda} A circular polarized antenna can be half the size.[1] Harrington extended the theory of Chu to the circularly polarized case.[2] As antennas are made smaller, the bandwidth shrinks, the radiation resistance is smaller, and efficiency reduces. For users this decreases the bitrate, limits range, and shortens battery life. Chu expressed the electromagnetic field in terms of evanescent modes with a real component and no propagating modes. The fields were expressed as a spherical harmonic series with the components being Legendre functions and spherical Bessel functions. The impedance could be expressed as a series of a ratio of a derivative of a Hankel function to other Hankel functions An equivalent circuit is a ladder line with the rungs being inductors and the capacitors running in series. The number of elements used in the mathematical series matches the number of capacitor - inductor pairs in the equivalent circuit.[3]
+I read the paragraph on http://wikipedia.org

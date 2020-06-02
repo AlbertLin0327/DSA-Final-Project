@@ -1,0 +1,8 @@
+From: Yvonne
+Date: 28 February 2012 at 05:03
+Message-ID: 6933
+Subject: Kunen's inconsistency theorem 
+To: Debbie
+Content:
+In set theory, a branch of mathematics, Kunen's inconsistency theorem, proved by Kenneth Kunen(1971), shows that several plausible large cardinal axioms are inconsistent with the axiom of choice. Some consequences of Kunen's theorem are: It is not known if Kunen's theorem still holds in ZF (ZFC without the axiom of choice), though Suzuki (1999) showed that there is no definable elementary embedding from V into V. That is there is no formula J in the language of set theory such that for some parameter pV for all sets xV and yV: j(x)=y \leftrightarrow J(x,y,p) \,. Notice that Kunen used MorseKelley set theory in his proof, if the proof is re-written to use ZFC, then one must add the assumption that replacement holds for formulas involving j. Otherwise one could not even show that j" exists as a set. The forbidden set j" is crucial to the proof. The proof first shows that it cannot be in M. The other parts of the theorem are derived from that.
+I read the paragraph on http://wikipedia.org

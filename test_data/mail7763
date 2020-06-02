@@ -1,0 +1,8 @@
+From: Nydia
+Date: 13 September 2011 at 23:42
+Message-ID: 7763
+Subject: Embedded RDF 
+To: Sue
+Content:
+Embedded RDF (eRDF) is a syntax for writing HTML in such a way that the information in the HTML document can be extracted (with an eRDF parser or XSLT stylesheet) into Resource Description Framework. This can be of great use for searching within data. It was invented by Ian Davis in 2005, and partly inspired by microformats, a simplified approach to semantically annotate data in websites.[1] 
+I read the paragraph on http://wikipedia.org

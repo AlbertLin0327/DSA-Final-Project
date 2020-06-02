@@ -1,0 +1,8 @@
+From: Stephanie
+Date: 8 June 2012 at 14:10
+Message-ID: 6122
+Subject: Wildcard mask 
+To: Tyler
+Content:
+A wildcard mask is a mask of bits that indicates which parts of an IP address can assume any value. In the Cisco IOS, they are used in several places, for example: A wildcard mask can be thought of as a subnet mask, with ones and zeros inverted; for example, a wildcard mask of 0.0.0.255 corresponds to a subnet mask of 255.255.255.0. A wildcard mask is usually used in combination with an IP address. For example, in a standard ACL, a statement like the following: allows data from subnet 10.0.3.0/24 to pass, that is, the first three octets must match exactly, whereas all the bits in the fourth octet can take on any value. However, any bits can be marked as "don't care". For example, a wildcard mask of 0.0.0.254 (binary equivalent = 00000000.00000000.00000000.11111110) in an ACL might accept (or deny) all even-numbered IP addresses in a specific network. Wildcard masks are used in situations where the subnet mask may not apply. For example, in an ACL, two affected hosts may fall in different subnets, but the use of a wildcard mask can group the two together.
+I read the paragraph on http://wikipedia.org

@@ -1,0 +1,8 @@
+From: Patty
+Date: 26 February 2009 at 11:07
+Message-ID: 61
+Subject: Span (programming language) 
+To: Abel
+Content:
+Span is a programming language targeting the Parrot virtual machine. Its syntax is meant to be very similar to C, but its philosophy is Smalltalk-like, and it uses Smalltalk-style message syntax. Almost all of Span's library visible to the user is written in Span itself. Span is dynamically typed. The hello world program in Span is Span uses blocks ala Smalltalk for all flow control constructs except definition. For example, for this pseudocode fragment: Span would write Span is currently in very early stages of development. 
+I read the paragraph on http://wikipedia.org

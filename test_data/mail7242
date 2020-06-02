@@ -1,0 +1,8 @@
+From: Joshua
+Date: 19 January 2012 at 16:14
+Message-ID: 7242
+Subject: Arpabet 
+To: Riley
+Content:
+Arpabet is a phonetic transcription code developed by Advanced Research Projects Agency (ARPA) as a part of their Speech Understanding Project (19711976). It represents each phoneme of General American English with a distinct sequence of ASCII characters. Arpabet has been used in several speech synthesizers, like SAM for the Commodore 64, Say for the Amiga and TextAssist for the PC. It is also used in the CMU Pronouncing Dictionary. In Arpabet, every phoneme is represented by one or two capital letters. Digits are used as stress indicators and are placed at the end of the stressed syllabic vowel. Punctuation marks are used like in the written language, to represent intonation changes at the end of clauses and sentences. The stress values are: Other ASCII phonetic codes:
+I read the paragraph on http://wikipedia.org

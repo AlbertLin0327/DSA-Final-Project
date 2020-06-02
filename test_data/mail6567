@@ -1,0 +1,8 @@
+From: Dolores
+Date: 5 June 2012 at 17:45
+Message-ID: 6567
+Subject: OpenMx 
+To: Kitty
+Content:
+OpenMx is an open source program for extended structural equation modeling. It runs as a package under R. Cross platform, it runs under Linux, Mac OS and Windows.[2] OpenMx consists of an R library of functions and optimizers supporting the rapid and flexible implementation and estimation of SEM models. Models can be estimated based on either raw data (with FIML modelling) or on correlation or covariance matrices. Multigroup models are implemented readily, and models can handle both continuous and ordinal data. Models can be written in either a "pathic" or "matrix" form. For those who think in terms of path models, paths are specified using mxPath() to describe paths. For models that are better suited to description in terms of matrix algebra, this is done using similar functional extensions in the R environment, for instance mxMatrix and mxAlgebra. The program has parallel processing built-in via links to parallel environments in R, and in general takes advantage of the R programming environment. Below is the code to implement, run, and print a summary for estimating a one-factor path model with five indicators. Below is the code to implement, run, and print a summary for estimating a one-factor path model with five indicators.
+I read the paragraph on http://wikipedia.org
