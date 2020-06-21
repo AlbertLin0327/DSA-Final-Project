@@ -160,9 +160,14 @@ void longest(){
 	// return the longest message
 }
 
+
 inline void query_from_to(string name, vector <int> &result, unordered_map <string, set < int > >& source){
+
+	// find intersection of "from" list and "result"
 	vector <int> intersected(10000);
 	auto end = set_intersection(result.begin(), result.end(), source[name].begin(), source[name].end(), intersected.begin());
+
+	// resize the "result" vector
 	intersected.resize(end - intersected.begin());
 	result = intersected;
 	return;
@@ -275,7 +280,6 @@ void query_expression(string name, vector <int> &result){
 	}
 
 	return;
-	
 }
 
 int main(){
