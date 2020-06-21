@@ -44,7 +44,6 @@ void query_expression(string& expressions, vector<int> allID){
 }
 void query(string &conditions){
 	vector<int> allID;
-	string from="0", to="1";
 	size_t pos = 0;
 	string token;
 	string delimiter=" ";
