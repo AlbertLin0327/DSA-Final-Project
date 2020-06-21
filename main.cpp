@@ -2,7 +2,7 @@
 using namespace std;
 
 // Some global variable
-char buffer[15000];
+char buffer[150000];
 
 // Define Conversion of month and 
 unordered_map <string, int> months{
@@ -19,6 +19,10 @@ unordered_map <string, int> months{
     {"November", 11},
     {"December", 12}
 };
+
+unordered_map <string, set < int > > from;
+unordered_map <string, set < int > > to;
+unordered_map <string, set < int > > keyword;
 
 class DATE{
 public:
@@ -49,31 +53,46 @@ private:
 		
 };
 
-/*
-void add(string &route){
-	ifstream input(route, ios::binary | ios::in);
-	
-	if(!input) cout << route;
-	// read file into a string-stream
-	string data(static_cast <stringstream const&> (stringstream() << input.rdbuf()).str());
-	
-	cout << data;
-	input.close();
-	// processing the data
-	return;
-}
-*/
-
 void add(string &route){
 	// input file route
 	FILE* input = fopen(route.c_str(), "rb");
 	
 	// read words into global buffer and count
-	int word_counter = 0; 
-	while((buffer[word_counter] = fgetc(input)) != EOF)
-		word_counter++;
+	char from[60], to[60], month[15];
+	int year, day, time, hour, second, ID;
 
-	// cout << buffer;
+	char word[60];
+	int shift = 0;
+
+	// parse the field to get the imformation
+	fscanf(input, "From: %s\nDate: %d %s %d at %d:%d\nMessage-ID: %d\n", from, &year, month, &day, &hour, &second, &ID);
+
+	// Get Subject information
+	fgets(buffer, 100000, input);
+
+	// Skip "Subject: " and start parsing from first argument of subject
+	char* ptr = strtok(buffer, " ");
+	ptr = strtok(NULL, " ");
+
+	while (ptr){
+
+		/***************************** TODO *****************************\
+		Get rid of punctuation marks
+		\****************************************************************/
+
+		// add key word to request tree
+		string subject_word(ptr);
+		keyword[subject_word].insert(ID);
+
+		ptr = strtok(NULL, " ");
+	} 
+
+	fscanf(input, "To: %s\nContent:\n", to);
+
+	fclose(input);
+
+	// variable needed for key to the mail parsing by string-scan
+	
 	return;
 }
 
@@ -104,6 +123,7 @@ int main(){
 		string s = "./test_data/mail";
 		s += to_string(i);
 		add(s);
+		
 	}
 
 
