@@ -59,7 +59,7 @@ void parse_and_build(int &ID, FILE* &fp){
 		// Sequential search and cut every non alphabet and number character
 		int length = strlen(word);
 		while(nowlen <= length){
-			tolower(word[nowlen]);
+			word[nowlen] = tolower(word[nowlen]);
 		    if(nowlen == length || !isalnum(word[nowlen])){
 
 				if(lastlen < nowlen - 1){
@@ -170,6 +170,7 @@ inline void query_from_to(string name, vector <int> &result, unordered_map <stri
 	// resize the "result" vector
 	intersected.resize(end - intersected.begin());
 	result = intersected;
+
 	return;
 }
 
@@ -201,6 +202,9 @@ void infix_to_postfix(string &expression, vector <string> &postfix){
 			}
 		}else{
 			string str(1, expression[i]);
+			while(i + 1 < length && isalnum(expression[i + 1]))
+				str += expression[++i];
+
 			postfix.push_back(str);
 		}
 	}
@@ -210,9 +214,6 @@ void infix_to_postfix(string &expression, vector <string> &postfix){
 		postfix.push_back(str);
 		operator_stack.pop();
 	}
-
-	for(auto c : postfix)
-		cout << c;
 	
 	return;
 }
@@ -234,17 +235,23 @@ void query_date(int64_t &date1, int64_t &date2, vector<int> &result){
     return ;
 }
 
-void query_expression(string name, vector <int> &result){
-	cout << name << endl;
+void query_expression(string condition, vector <int> &result){
+
+	stack <stirng> numerator;
+
 	vector <int> answer(10000);
-	vector <string> postfix(100);
-	infix_to_postfix(name, postfix);
+	vector <string> postfix;
+	infix_to_postfix(condition, postfix);
 
 	bool ans = 1;
 	int length = postfix.size();
+
+
+
+
 	for(int i = 0; i < length; i++){
 		auto first_set = keyword[postfix[i]];
-		if(postfix[i + 1] == "!"){
+		if(i + 1 < length && postfix[i + 1] == "!"){
 			i++;
 			if(ans){
 				set_difference(result.begin(),result.end() , first_set.begin(), first_set.end(), answer.begin());
@@ -254,32 +261,93 @@ void query_expression(string name, vector <int> &result){
 				answer.clear(); 
 			}
 			ans = !ans;
-		}else{
+		}else if(i + 1 < length){
 			auto second_set = keyword[postfix[i + 1]];
 			if(postfix[i + 2] == "&"){
 				if(ans){
-					set_intersection(result.begin(),result.end() , first_set.begin(), first_set.end(), answer.begin());
+					auto end = set_intersection(result.begin(), result.end() , first_set.begin(), first_set.end(), answer.begin());
+					answer.resize(end - answer.begin());
 					result.clear(); 
 				}else{
-					set_intersection(answer.begin(),answer.end() , first_set.begin(), first_set.end(), result.begin());
+					auto end = set_intersection(answer.begin(),answer.end() , first_set.begin(), first_set.end(), result.begin());
+					result.resize(end - result.begin());
 					answer.clear(); 
 				}
 				ans = !ans;
 			}else{
 				if(ans){
-					set_union(result.begin(),result.end() , first_set.begin(), first_set.end(), answer.begin());
+					auto end = set_union(result.begin(),result.end() , first_set.begin(), first_set.end(), answer.begin());
+					answer.resize(end - answer.begin());
 					result.clear();
 				}else{
-					set_union(answer.begin(),answer.end() , first_set.begin(), first_set.end(), result.begin());
+					auto end = set_union(answer.begin(),answer.end() , first_set.begin(), first_set.end(), result.begin());
+					result.resize(end - result.begin());
 					answer.clear(); 
 				}
 				ans = !ans;
 			}
 			i += 2;
+		}else{
+			result = keyword[postfix[i]];
 		}
 	}
 
+	if(!ans)
+		result = answer;
+
 	return;
+}
+
+void query(string &name){
+    vector<int> result(exist_mail_id.begin(), exist_mail_id.end());
+
+    for(int i = 0 ; i < name.length(); i ++){
+        if(name[i] == '-' && name[i + 1] == 'f'){
+            int j = i;
+            while(name[j] != ' ')
+                j++;
+            string from_user = name.substr(i + 3, j - i - 4);
+            query_from_to(from_user, result, from);
+            i = j;
+        }
+        else if(name[i] == '-' && name[i + 1] == 't'){
+            int j = i;
+            while(name[j] != ' ')
+                j++;
+            string to_user = name.substr(i + 3, j - i - 4);
+            query_from_to(to_user, result, to);
+            i = j;            
+        }
+        else if(name[i] == '-' && name[i + 1] == 'd'){
+            int j = i;
+            while(name[j] != '~')
+                j++;
+            string date_1 = (i + 2 == j - 1) ? "0" : name.substr(i + 2, 12);
+            i = j + 1;
+            while(name[j] != ' ')
+                j++;
+            string date_2 = (i == j) ? "999999999999" : name.substr(i, 12);
+            int64_t date_int_1 = stoll(date_1);
+            int64_t date_int_2 = stoll(date_2);
+            i = j;
+            query_date(date_int_1, date_int_2, result); 
+        }
+        else{
+            string ex = name.substr(i, name.length() - i);
+            query_expression(ex, result);
+
+            break;
+        }
+    }
+
+    if(result.empty())
+    	cout << "-" << "\n";
+    else{
+    	for(auto c : result)
+    		cout << c << " ";
+    	cout << endl;
+    }
+    return;
 }
 
 int main(){
@@ -303,10 +371,12 @@ int main(){
 			int id; cin >> id;
 			remove(id);
 		}else{
+			getchar();
 			string condition; 
 			condition.reserve(10000);
 			getline(cin, condition, '\n');
 			query(condition);
+
 		}
 	}
 
