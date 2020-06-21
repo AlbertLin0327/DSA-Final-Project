@@ -217,8 +217,11 @@ void infix_to_postfix(string &expression, vector <string> &postfix){
 	return;
 }
 
+
 void query_date(int64_t &date1, int64_t &date2, vector<int> &result){
     set<int> record;
+
+
     for(auto i : date){
         if(i.first > date2)
             break;
@@ -278,7 +281,6 @@ void query_expression(string name, vector <int> &result){
 			i += 2;
 		}
 	}
-
 	return;
 }
 
@@ -334,9 +336,11 @@ int main(){
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 
+
 	vector <string> postfix(100);
 
 	// reserve space from the data structure
+
 
 	string mode;
 	while(cin >> mode){
@@ -355,6 +359,7 @@ int main(){
 			query(condition);
 		}
 	}
+
 
 	return 0;
 }
