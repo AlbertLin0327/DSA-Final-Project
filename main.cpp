@@ -44,13 +44,32 @@ inline void date_contruction(int &Y, int &M, int &D, int &h, int &m, int &ID){
 void parse_and_build(int &ID, FILE* &fp){
 	char word[1000];
 	while(fscanf(fp, "%s", word) != EOF){
-		/***************************** TODO *****************************\
-		Get rid of punctuation marks
-		\****************************************************************/
 
-		// add key word to request tree
-		string subject_word(word);
-		keyword[subject_word].insert(ID);
+		// two pointer method to record the start and end of a string
+		int nowlen = 0, lastlen = -1;
+		char cutted_word[1000];
+
+		// Sequential search and cut every non alphabet and number character
+		int length = strlen(word);
+		while(nowlen <= length){
+		    if(nowlen == length || !isalnum(word[nowlen])){
+
+				if(lastlen < nowlen - 1){
+
+					// copy trimmed string 
+				    strncpy(cutted_word, word + lastlen + 1, nowlen - lastlen - 1);
+				    cutted_word[nowlen - lastlen - 1] = '\0';
+
+				    // construct the tree
+				    string subject_word = cutted_word;
+					keyword[subject_word].insert(ID);
+				} 
+
+				// update pointer
+				lastlen = nowlen;    
+		    }
+		    nowlen++;
+		}
 	} 
 	return;
 }
@@ -68,6 +87,14 @@ void add(string &route){
 
 	// parse the field to put the informations into the tree and skip "Subject: "
 	fscanf(input, "From: %s\nDate: %d %s %d at %d:%d\nMessage-ID: %d\nSubject: ", sender, &day, month, &year, &hour, &minute, &ID);
+	
+	// Escape if this mail is already in the exists mail list
+	if(exist_mail_id.find(ID) != exist_mail_id.end()){
+		cout << "-" << "\n";
+		fclose(input);
+		return;
+	}
+
 	date_contruction(year, day, months[month], hour, minute, ID);
 
 	// Get Subject information
@@ -86,6 +113,11 @@ void add(string &route){
 	from[message_from].insert(ID);
 	length_of_mail[ftell(input)] = ID;
 
+	// Update mail list
+	exist_mail_id.insert(ID);
+	proccessed_mail_id.insert(ID);
+
+	cout << ID << "\n";
 	fclose(input);
 	
 	return;
@@ -94,17 +126,34 @@ void add(string &route){
 inline void remove(int &id){
 
 	// remove message-id from exists list but don't erase from processed mail-id list
+	if(exist_mail_id.find(id) != exist_mail_id.end())
+		cout << id << "\n";
+	else
+		cout << "-" << "\n";
+
 	exist_mail_id.erase(id);
 	return;
 }
 
 void longest(){
+	auto p1 = exist_mail_id.begin();
+	auto p2 = length_of_mail.rbegin();
+	while(p1 != exist_mail_id.end() && p2 !=length_of_mail.rend()){
+		if(*p1 == p2->second){
+			cout << *p1 << "\n";
+			return;
+		}else if(*p1 > p2->second)
+			p2++;
+		else
+			p1++;
+	}
 
+	cout << "-" << "\n";
 	// return the longest message
 }
 
-void query(stringstream &conditions){
-
+void query(string &conditions){
+	cout << "-" << "\n";
 	// parse the condition and find the target mail
 	return;
 }
@@ -116,6 +165,7 @@ int main(){
 	cin.tie(NULL);
 
 	// reserve space from the data structure
+	/*
 	string s; s.reserve(100);
 	for(int i = 1; i < 10000; i++){
 		exist_mail_id.insert(i);
@@ -124,7 +174,24 @@ int main(){
 		s += to_string(i);
 		add(s);
 	}
-	
+	*/
 
+	string mode;
+	while(cin >> mode){
+		if(mode == "add"){
+			string route; cin >> route;
+			add(route);
+		}else if(mode == "longest"){
+			longest();
+		}else if(mode == "remove"){
+			int id; cin >> id;
+			remove(id);
+		}else{
+			string condition; condition.reserve(10000);
+			getline(cin, condition, '\n');
+			query(condition);
+		}
+	}
+	
 	return 0;
 }
