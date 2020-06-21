@@ -200,6 +200,23 @@ string infix_to_postfix(string &expression, vector <string> &postfix){
 	return;
 }
 
+void query_date(int64_t &date1, int64_t &date2, vector<int> &all_vector){
+    set<int> re_set;
+    for(auto i : date){
+        if(i.first > date2)
+            break;
+        else if(i.first >= date1){
+            for(auto j : date[i.first])
+                re_set.insert(j);
+        }
+    }
+    vector<int> out(10000); 
+    vector<int> ::iterator t = set_intersection(re_set.begin(), re_set.end(), all_vector.begin(), all_vector.end(), out.begin());
+    out.resize(t - out.begin());
+    all_vector = out;
+    return ;
+}
+
 void query_expression(string name, vector <int> &result){
 	vector <int> answer(10000);
 	vector <string> postfix(100);
