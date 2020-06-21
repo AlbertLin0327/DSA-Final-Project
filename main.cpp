@@ -168,18 +168,18 @@ inline void query_from_to(string name, vector <int> &result, unordered_map <stri
 	return;
 }
 
-string infix_to_postfix(string &expression){
+string infix_to_postfix(string &expression, vector <string> &postfix){
 	stack <char> operator_stack;
-	string postfix;
-
+	
 	int length = expression.length();
 	for(int i = 0; i < length; i++){
+
 		if(!isalpha(expression[i])){
 			if(expression[i] == '(')
 				operator_stack.push('(');
 			else if(expression[i] == ')'){
 				while(!operator_stack.empty() && operator_stack.top() != '('){
-					postfix += operator_stack.top();
+					postfix.push_back(operator_stack.top());
 					operator_stack.pop();
 				}
 
@@ -188,24 +188,64 @@ string infix_to_postfix(string &expression){
 				
 			}else{
 				while(!operator_stack.empty() && precedence_order[expression[i]] >= precedence_order[operator_stack.top()]){
-					postfix += operator_stack.top();
+					postfix.push_back(operator_stack.top());
 					operator_stack.pop();
 				}
 				operator_stack.push(expression[i]);
 			}
-		}
-
-		postfix += expression[i];
+		}else
+			postfix.push_back(expression[i]);
 	}
-	return postfix;
+	
+	return;
 }
 
 void query_expression(string name, vector <int> &result){
+	vector <int> answer(10000);
+	vector <string> postfix(100);
+	infix_to_postfix(string name, postfix);
 
+	bool ans = 1;
+	int length = postfix.size();
+	for(int i = 0; i < length; i++){
+		auto first_set = keyword[postfix[i]];
+		if(postfix[i + 1] == "!"){
+			i++;
+			if(ans){
+				set_difference(result.begin(),result.end() , first_set.begin(), first_set.end(), answer.begin());
+				result.clear(); ans = 0;
+			}else{
+				set_difference(answer.begin(),answer.end() , first_set.begin(), first_set.end(), result.begin());
+				answer.clear(); ans = 0;
+			}
+		}else{
+			auto second_set = keyword[postfix[i + 1]];
+			if(postfix[i + 2] == "&"){
+				if(ans){
+					set_intersection(result.begin(),result.end() , first_set.begin(), first_set.end(), answer.begin());
+					result.clear(); ans = 0;
+				}else{
+					set_intersection(answer.begin(),answer.end() , first_set.begin(), first_set.end(), result.begin());
+					answer.clear(); ans = 0;
+				}
+			}else{
+				if(ans){
+					set_union(result.begin(),result.end() , first_set.begin(), first_set.end(), answer.begin());
+					result.clear(); ans = 0;
+				}else{
+					set_union(answer.begin(),answer.end() , first_set.begin(), first_set.end(), result.begin());
+					answer.clear(); ans = 0;
+				}
+			}
+			i += 2;
+		}
+	}
+	
 }
 
+
 void query(string &conditions){
-	vector<int> allID;
+	vector <int> result(exist_mail_id.begin(), exist_mail_id.end());
 	size_t pos = 0;
 	string token;
 	string delimiter=" ";
@@ -217,11 +257,11 @@ void query(string &conditions){
     	if(token[0]=='-'){ // case -f -t -d
     		if(token[1]=='f'){
     			token.erase(0,2); // erase -f
-    			query_from_to(token, allID, from);
+    			query_from_to(token, result, from);
     			extra=2+token.length();
     		}else if(token[1]=='t'){
     			token.erase(0,2);
-    			query_from_to(token, allID, to);
+    			query_from_to(token, result, to);
     			extra=2+token.length();
     		}else if(token[1]=='d'){
  				token.erase(0,2);
@@ -250,21 +290,21 @@ void query(string &conditions){
     					num2=stoll(token);
     				}
     			}
-    			query_date(num1, num2, allID);
+    			query_date(num1, num2, result);
     		}
     	}else{
     		extra=token.length();
-    		query_expression(token, allID);
+    		query_expression(token, result);
 		}
     	conditions.erase(0, delimiter.length()+ extra);
 	}
 	if(conditions[0]=='-'){ // case -f -t -d
     	if(conditions[1]=='f'){
     		conditions.erase(0,2); // erase -f
-    		query_from_to(conditions, allID, from);
+    		query_from_to(conditions, result, from);
     	}else if(conditions[1]=='t'){
     		conditions.erase(0,2);
-    		query_from_to(conditions, allID, to);
+    		query_from_to(conditions, result, to);
     	}else if(conditions[1]=='d'){
     		int64_t num1,num2;
     		conditions.erase(0,2); // erase -d
@@ -287,10 +327,10 @@ void query(string &conditions){
     			else
     				num2=stoll(conditions);
 			}
-    		query_date(num1, num2, allID);
+    		query_date(num1, num2, result);
     	}
     }else{
-    	query_expression(conditions, allID);
+    	query_expression(conditions, result);
 	}
 	return;
 }
@@ -301,18 +341,6 @@ int main(){
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 
-	// reserve space from the data structure
-	/*
-	string s; s.reserve(100);
-	for(int i = 1; i < 10000; i++){
-		exist_mail_id.insert(i);
-		proccessed_mail_id.insert(i);
-		s = "./test_data/mail";
-		s += to_string(i);
-		add(s);
-	}
-	*/
-/*
 	string str = "winter&vacation&is&coming";
 	cout << infix_to_postfix(str) << endl;
 
@@ -333,29 +361,7 @@ int main(){
 		}
 	}
 
-*/
 
-	while(getline(cin, q)){
-		/* split string and get the query */
-		string delimiter = " ";
-		size_t pos = 0;
-		string token;
-		pos=q.find(delimiter);
-		token=q.substr(0, pos);
-		q.erase(0, pos + delimiter.length());
-		if(token=="add"){
-			add(q);
-		}else if(token=="remove"){
-			int file_id;
-			file_id=stoi(q);
-			remove(file_id);
-		}else if(token=="longest"){
-			longest();
-		}else{
-			query(q);
-		}
-		
-	}
 	
 	return 0;
 }
