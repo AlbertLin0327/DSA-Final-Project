@@ -20,10 +20,10 @@ unordered_map <string, int> months{
 };
 
 unordered_map <char, int> precedence_order{
-	{'(', 0},
 	{'!', 1},
 	{'&', 2},
-	{'|', 3}
+	{'|', 3},
+	{'(', 4}
 };
 
 // Message-ID as the key
@@ -160,15 +160,20 @@ void longest(){
 	// return the longest message
 }
 
+
 inline void query_from_to(string name, vector <int> &result, unordered_map <string, set < int > >& source){
+
+	// find intersection of "from" list and "result"
 	vector <int> intersected(10000);
 	auto end = set_intersection(result.begin(), result.end(), source[name].begin(), source[name].end(), intersected.begin());
+
+	// resize the "result" vector
 	intersected.resize(end - intersected.begin());
 	result = intersected;
 	return;
 }
 
-string infix_to_postfix(string &expression, vector <string> &postfix){
+void infix_to_postfix(string &expression, vector <string> &postfix){
 	stack <char> operator_stack;
 	int length = expression.length();
 	for(int i = 0; i < length; i++){
@@ -178,7 +183,8 @@ string infix_to_postfix(string &expression, vector <string> &postfix){
 				operator_stack.push('(');
 			else if(expression[i] == ')'){
 				while(!operator_stack.empty() && operator_stack.top() != '('){
-					postfix.push_back(operator_stack.top());
+					string str(1, operator_stack.top());
+					postfix.push_back(str);
 					operator_stack.pop();
 				}
 
@@ -187,39 +193,55 @@ string infix_to_postfix(string &expression, vector <string> &postfix){
 				
 			}else{
 				while(!operator_stack.empty() && precedence_order[expression[i]] >= precedence_order[operator_stack.top()]){
-					postfix.push_back(operator_stack.top());
+					string str(1, operator_stack.top());
+					postfix.push_back(str);
 					operator_stack.pop();
 				}
 				operator_stack.push(expression[i]);
 			}
-		}else
-			postfix.push_back(expression[i]);
+		}else{
+			string str(1, expression[i]);
+			postfix.push_back(str);
+		}
 	}
+
+	while(!operator_stack.empty()){
+		string str(1, operator_stack.top());
+		postfix.push_back(str);
+		operator_stack.pop();
+	}
+
+	for(auto c : postfix)
+		cout << c;
 	
 	return;
 }
 
-void query_date(int64_t &date1, int64_t &date2, vector<int> &all_vector){
-    set<int> re_set;
+
+void query_date(int64_t &date1, int64_t &date2, vector<int> &result){
+    set<int> record;
+
+
     for(auto i : date){
         if(i.first > date2)
             break;
         else if(i.first >= date1){
             for(auto j : date[i.first])
-                re_set.insert(j);
+                record.insert(j);
         }
     }
-    vector<int> out(10000); 
-    vector<int> ::iterator t = set_intersection(re_set.begin(), re_set.end(), all_vector.begin(), all_vector.end(), out.begin());
-    out.resize(t - out.begin());
-    all_vector = out;
+    vector<int> intersected(10000); 
+    vector<int> ::iterator t = set_intersection(record.begin(), record.end(), result.begin(), result.end(), intersected.begin());
+    intersected.resize(t - intersected.begin());
+    result = intersected;
     return ;
 }
 
 void query_expression(string name, vector <int> &result){
+	cout << name << endl;
 	vector <int> answer(10000);
 	vector <string> postfix(100);
-	infix_to_postfix(string name, postfix);
+	infix_to_postfix(name, postfix);
 
 	bool ans = 1;
 	int length = postfix.size();
@@ -229,134 +251,83 @@ void query_expression(string name, vector <int> &result){
 			i++;
 			if(ans){
 				set_difference(result.begin(),result.end() , first_set.begin(), first_set.end(), answer.begin());
-				result.clear(); ans = 0;
+				result.clear(); 
 			}else{
 				set_difference(answer.begin(),answer.end() , first_set.begin(), first_set.end(), result.begin());
-				answer.clear(); ans = 0;
+				answer.clear(); 
 			}
+			ans = !ans;
 		}else{
 			auto second_set = keyword[postfix[i + 1]];
 			if(postfix[i + 2] == "&"){
 				if(ans){
 					set_intersection(result.begin(),result.end() , first_set.begin(), first_set.end(), answer.begin());
-					result.clear(); ans = 0;
+					result.clear(); 
 				}else{
 					set_intersection(answer.begin(),answer.end() , first_set.begin(), first_set.end(), result.begin());
-					answer.clear(); ans = 0;
+					answer.clear(); 
 				}
+				ans = !ans;
 			}else{
 				if(ans){
 					set_union(result.begin(),result.end() , first_set.begin(), first_set.end(), answer.begin());
-					result.clear(); ans = 0;
+					result.clear();
 				}else{
 					set_union(answer.begin(),answer.end() , first_set.begin(), first_set.end(), result.begin());
-					answer.clear(); ans = 0;
+					answer.clear(); 
 				}
+				ans = !ans;
 			}
 			i += 2;
 		}
 	}
-	
+	return;
 }
 
+void query(string &name){
+    vector<int> result(exist_mail_id.begin(), exist_nail_id.end());
+    for(int i = 0 ; i < name.length(); i ++){
+        if(name[i] == '-' && name[i + 1] == 'f'){
+            int j = i;
+            while(name[j] != ' ')
+                j++;
+            string from_user = name.substr(i + 3, j - i - 4);
+            //cout << "f: " << from_user << endl;
+            query_from_to(from_user, result, from);
+            i = j;
+        }
+        else if(name[i] == '-' && name[i + 1] == 't'){
+            int j = i;
+            while(name[j] != ' ')
+                j++;
+            string to_user = name.substr(i + 3, j - i - 4);
+            //cout << "t: " << to_user << endl;
+            query_from_to(to_user, result, to);
+            i = j;            
+        }
+        else if(name[i] == '-' && name[i + 1] == 'd'){
+            int j = i;
+            while(name[j] != '~')
+                j++;
+            string date_1 = (i + 2 == j - 1) ? "0" : name.substr(i + 2, 12);
+            i = j + 1;
+            while(name[j] != ' ')
+                j++;
+            string date_2 = (i == j) ? "999999999999" : name.substr(i, 12);
+            int64_t date_int_1 = stoll(date_1);
+            int64_t date_int_2 = stoll(date_2);
+            //cout << "d: " << date_int_1 << " " << date_int_2 << endl;
+            i = j;
+            query_date(date_int_1, date_int_2, result); 
+        }
+        else{
+            string ex = name.substr(i, name.length() - i);
+            //cout << "ex: " << ex << endl;
+            query_expression(ex, result);
+            break;
+        }
 
-void query(string &conditions){
-	vector <int> result(exist_mail_id.begin(), exist_mail_id.end());
-
-	size_t pos = 0;
-	string token;
-	string delimiter=" ";
-	set<int> file_id;
-	int64_t num1,num2;
-	while ((pos = conditions.find(delimiter)) != string::npos) {
-		int extra=0; //for deleting the token
-    	token = conditions.substr(0, pos);
-    	if(token[0]=='-'){ // case -f -t -d
-    		if(token[1]=='f'){
-    			token.erase(0,2); // erase -f
-
-    			query_from_to(token, result, from);
-    			extra=2+token.length();
-    		}else if(token[1]=='t'){
-    			token.erase(0,2);
-    			query_from_to(token, result, to);
-
-    			extra=2+token.length();
-    		}else if(token[1]=='d'){
- 				token.erase(0,2);
- 				extra+=3; 
-    			if(token[0]!='~'){ // has starting date
-    				string delimiter2="~";
-    				size_t pos2=0;
-    				pos2=token.find(delimiter2);
-    				string token2=token.substr(0, pos2);
-    				token.erase(0, pos2+delimiter2.length());
-    				num1=stoll(token2);
-    				extra+=token2.length();
-    				if(token=="")
-    					num2=9999;
-    				else{
-    					extra+=token.length();
-    					num2=stoll(token);
-    				}
-    			}else{
-    				token.erase(0,1);
-    				num1=0;
-    				if(token=="")
-    					num2=9999;
-    				else{
-    					extra+=token.length();
-    					num2=stoll(token);
-    				}
-    			}
-    			query_date(num1, num2, result);
-    		}
-    	}else{
-    		extra=token.length();
-    		query_expression(token, result);
-
-		}
-    	conditions.erase(0, delimiter.length()+ extra);
-	}
-	if(conditions[0]=='-'){ // case -f -t -d
-    	if(conditions[1]=='f'){
-    		conditions.erase(0,2); // erase -f
-
-    		query_from_to(conditions, result, from);
-    	}else if(conditions[1]=='t'){
-    		conditions.erase(0,2);
-    		query_from_to(conditions, result, to);
-
-    	}else if(conditions[1]=='d'){
-    		int64_t num1,num2;
-    		conditions.erase(0,2); // erase -d
-    		if(conditions[0]!='~'){ // has starting date
-    			string delimiter2="~";
-    			size_t pos2=0;
-    			pos2=conditions.find(delimiter2);
-    			string conditions2=conditions.substr(0, pos2);
-    			conditions.erase(0, pos2+delimiter2.length());
-    			num1=stoll(conditions2);
-    			if(conditions=="")
-    				num2=9999;
-    			else
-    				num2=stoll(conditions);
-    		}else{
-    			conditions.erase(0,1);
-    			num1=0;
-    			if(conditions=="")
-    				num2=9999;
-    			else
-    				num2=stoll(conditions);
-			}
-
-    		query_date(num1, num2, result);
-    	}
-    }else{
-    	query_expression(conditions, result);
-	}
-
-	return;
+    }
 }
 
 int main(){
@@ -366,23 +337,10 @@ int main(){
 	cin.tie(NULL);
 
 
+	vector <string> postfix(100);
+
 	// reserve space from the data structure
-	/*
-	string s; s.reserve(100);
-	for(int i = 1; i < 10000; i++){
-		exist_mail_id.insert(i);
-		proccessed_mail_id.insert(i);
-		s = "./test_data/mail";
-		s += to_string(i);
-		add(s);
-	}
-	*/
 
-/*
-
-
-	string str = "winter&vacation&is&coming";
-	cout << infix_to_postfix(str) << endl;
 
 	string mode;
 	while(cin >> mode){
@@ -395,36 +353,13 @@ int main(){
 			int id; cin >> id;
 			remove(id);
 		}else{
-			string condition; condition.reserve(10000);
+			string condition; 
+			condition.reserve(10000);
 			getline(cin, condition, '\n');
 			query(condition);
 		}
 	}
 
-
-*/
-
-	while(getline(cin, q)){
-		/* split string and get the query */
-		string delimiter = " ";
-		size_t pos = 0;
-		string token;
-		pos=q.find(delimiter);
-		token=q.substr(0, pos);
-		q.erase(0, pos + delimiter.length());
-		if(token=="add"){
-			add(q);
-		}else if(token=="remove"){
-			int file_id;
-			file_id=stoi(q);
-			remove(file_id);
-		}else if(token=="longest"){
-			longest();
-		}else{
-			query(q);
-		}
-		
-	}
 
 	return 0;
 }
