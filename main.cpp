@@ -19,6 +19,13 @@ unordered_map <string, int> months{
     {"December", 12}
 };
 
+unordered_map <char, int> precedence_order{
+	{'(', 0},
+	{'!', 1},
+	{'&', 2},
+	{'|', 3}
+};
+
 // Message-ID as the key
 set <int> exist_mail_id;
 unordered_set <int> proccessed_mail_id;
@@ -52,6 +59,7 @@ void parse_and_build(int &ID, FILE* &fp){
 		// Sequential search and cut every non alphabet and number character
 		int length = strlen(word);
 		while(nowlen <= length){
+			tolower(word[nowlen]);
 		    if(nowlen == length || !isalnum(word[nowlen])){
 
 				if(lastlen < nowlen - 1){
@@ -154,9 +162,46 @@ void longest(){
 
 inline void query_from_to(string name, vector <int> &result, unordered_map <string, set < int > >& source){
 	vector <int> intersected(10000);
-	set_intersection(result.begin(), result.end(), source[name].begin(), source[name].end(), intersected.begin());
+	auto end = set_intersection(result.begin(), result.end(), source[name].begin(), source[name].end(), intersected.begin());
+	intersected.resize(end - intersected.begin());
 	result = intersected;
 	return;
+}
+
+string infix_to_postfix(string &expression){
+	stack <char> operator_stack;
+	string postfix;
+
+	int length = expression.length();
+	for(int i = 0; i < length; i++){
+		if(!isalpha(expression[i])){
+			if(expression[i] == '(')
+				operator_stack.push('(');
+			else if(expression[i] == ')'){
+				while(!operator_stack.empty() && operator_stack.top() != '('){
+					postfix += operator_stack.top();
+					operator_stack.pop();
+				}
+
+				if(!operator_stack.empty() && operator_stack.top() == '(')
+					operator_stack.pop(); 
+				
+			}else{
+				while(!operator_stack.empty() && precedence_order[expression[i]] >= precedence_order[operator_stack.top()]){
+					postfix += operator_stack.top();
+					operator_stack.pop();
+				}
+				operator_stack.push(expression[i]);
+			}
+		}
+
+		postfix += expression[i];
+	}
+	return postfix;
+}
+
+void query_expression(string name, vector <int> &result){
+
 }
 
 void query(string &conditions){
@@ -183,6 +228,9 @@ int main(){
 	}
 	*/
 
+	string str = "winter&vacation&is&coming";
+	cout << infix_to_postfix(str) << endl;
+
 	string mode;
 	while(cin >> mode){
 		if(mode == "add"){
@@ -199,6 +247,8 @@ int main(){
 			query(condition);
 		}
 	}
+
+
 	
 	return 0;
 }
