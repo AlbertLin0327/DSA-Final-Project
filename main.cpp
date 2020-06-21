@@ -334,6 +334,28 @@ int main(){
 	}
 
 */
+
+	while(getline(cin, q)){
+		/* split string and get the query */
+		string delimiter = " ";
+		size_t pos = 0;
+		string token;
+		pos=q.find(delimiter);
+		token=q.substr(0, pos);
+		q.erase(0, pos + delimiter.length());
+		if(token=="add"){
+			add(q);
+		}else if(token=="remove"){
+			int file_id;
+			file_id=stoi(q);
+			remove(file_id);
+		}else if(token=="longest"){
+			longest();
+		}else{
+			query(q);
+		}
+		
+	}
 	
 	return 0;
 }
