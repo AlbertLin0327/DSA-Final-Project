@@ -152,6 +152,13 @@ void longest(){
 	// return the longest message
 }
 
+inline void query_from_to(string name, vector <int> &result, unordered_map <string, set < int > >& source){
+	vector <int> intersected(10000);
+	set_intersection(result.begin(), result.end(), source[name].begin(), source[name].end(), intersected.begin());
+	result = intersected;
+	return;
+}
+
 void query(string &conditions){
 	cout << "-" << "\n";
 	// parse the condition and find the target mail
