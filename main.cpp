@@ -2,7 +2,6 @@
 using namespace std;
 
 // Some global variable
-char buffer[150000];
 
 // Define Conversion of month and 
 unordered_map <string, int> months{
@@ -20,38 +19,33 @@ unordered_map <string, int> months{
     {"December", 12}
 };
 
-unordered_map <string, set < int > > from;
-unordered_map <string, set < int > > to;
-unordered_map <string, set < int > > keyword;
+set <int> exist_mail_id;
+map <int64_t, set < int > > date;
+unordered_map <string, set < int > > from(10000);
+unordered_map <string, set < int > > to(10000);
+// unordered_map <string, set < int > > keyword(10000000);
 
-class DATE{
-public:
-	inline int get_date(){
-		return date_value;
-	}
+inline void date_contruction(int &Y, int &M, int &D, int &h, int &m, int &ID){
+	// "Y * 10000000 + M * 1000000 + D * 10000 + h * 100 + m" represent YYYY/MM/DD/hh:mm
 
-	DATE(int &y, int &m, int &d, int &t){
-		year = y;
-		month = m;
-		day = d;
-		time = t;
-		date_value = y * 10000000 + m * 1000000 + d * 10000 + t; 
-	}
+	// cout << Y * 10000000 + M * 1000000 + D * 10000 + h * 100 + m << endl;
+	date[(size_t)Y * 100000000 + M * 1000000 + D * 10000 + h * 100 + m].insert(ID);
+	return;
+}
 
-private:
-	int year, month, day, time;
-	long long int date_value;
-};
+void parse_and_build(int &ID, FILE* &fp){
+	char word[1000];
+	while(fscanf(fp, "%s", word) != EOF){
+		/***************************** TODO *****************************\
+		Get rid of punctuation marks
+		\****************************************************************/
 
-class MAIL{
-public:
-	
-private:
-	int id;
-	string from, to;
-	DATE senttime;
-		
-};
+		// add key word to request tree
+		string subject_word(word);
+		// keyword[subject_word].insert(ID);
+	} 
+	return;
+}
 
 void add(string &route){
 	// input file route
@@ -59,39 +53,26 @@ void add(string &route){
 	
 	// read words into global buffer and count
 	char from[60], to[60], month[15];
-	int year, day, time, hour, second, ID;
+	int year, day, time, hour, minute, ID;
 
 	char word[60];
 	int shift = 0;
 
-	// parse the field to get the imformation
-	fscanf(input, "From: %s\nDate: %d %s %d at %d:%d\nMessage-ID: %d\n", from, &year, month, &day, &hour, &second, &ID);
+	// parse the field to put the informations into the tree
+	fscanf(input, "From: %s\nDate: %d %s %d at %d:%d\nMessage-ID: %d\n", from, &day, month, &year, &hour, &minute, &ID);
+	date_contruction(year, day, months[month], hour, minute, ID);
 
 	// Get Subject information
-	fgets(buffer, 100000, input);
-
+	parse_and_build(ID, input);
 	// Skip "Subject: " and start parsing from first argument of subject
-	char* ptr = strtok(buffer, " ");
-	ptr = strtok(NULL, " ");
-
-	while (ptr){
-
-		/***************************** TODO *****************************\
-		Get rid of punctuation marks
-		\****************************************************************/
-
-		// add key word to request tree
-		string subject_word(ptr);
-		keyword[subject_word].insert(ID);
-
-		ptr = strtok(NULL, " ");
-	} 
-
+	
+	// Read "To: " and skip "Content: "
 	fscanf(input, "To: %s\nContent:\n", to);
 
-	fclose(input);
+	// Read and parse content.
+	parse_and_build(ID, input);
 
-	// variable needed for key to the mail parsing by string-scan
+	fclose(input);
 	
 	return;
 }
@@ -119,13 +100,15 @@ int main(){
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 
+	// reserve space from the data structure
+	string s; s.reserve(100);
 	for(int i = 1; i < 10000; i++){
-		string s = "./test_data/mail";
+		exist_mail_id.insert(i);
+		s = "./test_data/mail";
 		s += to_string(i);
 		add(s);
 		
 	}
-
 
 	return 0;
 }
