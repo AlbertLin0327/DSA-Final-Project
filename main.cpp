@@ -205,7 +205,7 @@ void query_expression(string name, vector <int> &result){
 }
 
 void query(string &conditions){
-	vector<int> allID;
+	vector<int> allID; 
 	size_t pos = 0;
 	string token;
 	string delimiter=" ";
