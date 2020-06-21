@@ -171,7 +171,6 @@ inline void query_from_to(string name, vector <int> &result, unordered_map <stri
 string infix_to_postfix(string &expression){
 	stack <char> operator_stack;
 	string postfix;
-
 	int length = expression.length();
 	for(int i = 0; i < length; i++){
 		if(!isalpha(expression[i])){
@@ -205,6 +204,7 @@ void query_expression(string name, vector <int> &result){
 }
 
 void query(string &conditions){
+
 	vector<int> allID;
 	size_t pos = 0;
 	string token;
@@ -292,6 +292,7 @@ void query(string &conditions){
     }else{
     	query_expression(conditions, allID);
 	}
+
 	return;
 }
 
@@ -312,7 +313,9 @@ int main(){
 		add(s);
 	}
 	*/
+
 /*
+
 	string str = "winter&vacation&is&coming";
 	cout << infix_to_postfix(str) << endl;
 
@@ -332,6 +335,7 @@ int main(){
 			query(condition);
 		}
 	}
+
 
 */
 
@@ -356,6 +360,6 @@ int main(){
 		}
 		
 	}
-	
+
 	return 0;
 }
