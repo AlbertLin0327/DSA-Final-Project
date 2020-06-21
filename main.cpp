@@ -282,6 +282,52 @@ void query_expression(string name, vector <int> &result){
 	return;
 }
 
+void query(string &name){
+    vector<int> result(exist_mail_id.begin(), exist_nail_id.end());
+    for(int i = 0 ; i < name.length(); i ++){
+        if(name[i] == '-' && name[i + 1] == 'f'){
+            int j = i;
+            while(name[j] != ' ')
+                j++;
+            string from_user = name.substr(i + 3, j - i - 4);
+            //cout << "f: " << from_user << endl;
+            query_from_to(from_user, result, from);
+            i = j;
+        }
+        else if(name[i] == '-' && name[i + 1] == 't'){
+            int j = i;
+            while(name[j] != ' ')
+                j++;
+            string to_user = name.substr(i + 3, j - i - 4);
+            //cout << "t: " << to_user << endl;
+            query_from_to(to_user, result, to);
+            i = j;            
+        }
+        else if(name[i] == '-' && name[i + 1] == 'd'){
+            int j = i;
+            while(name[j] != '~')
+                j++;
+            string date_1 = (i + 2 == j - 1) ? "0" : name.substr(i + 2, 12);
+            i = j + 1;
+            while(name[j] != ' ')
+                j++;
+            string date_2 = (i == j) ? "999999999999" : name.substr(i, 12);
+            int64_t date_int_1 = stoll(date_1);
+            int64_t date_int_2 = stoll(date_2);
+            //cout << "d: " << date_int_1 << " " << date_int_2 << endl;
+            i = j;
+            query_date(date_int_1, date_int_2, result); 
+        }
+        else{
+            string ex = name.substr(i, name.length() - i);
+            //cout << "ex: " << ex << endl;
+            query_expression(ex, result);
+            break;
+        }
+
+    }
+}
+
 int main(){
 
 	// fast I/O and also avoid std::cout << std::endl
