@@ -205,49 +205,49 @@ void query_expression(string name, vector <int> &result){
 }
 
 void query(string &conditions){
-	vector<int> allID; 
+	vector<int> allID = (exist_mail_id.begin(), exist_mail_id.end());
 	size_t pos = 0;
 	string token;
-	string delimiter=" ";
+	string delimiter = " ";
 	set<int> file_id;
 	int64_t num1,num2;
 	while ((pos = conditions.find(delimiter)) != string::npos) {
 		int extra=0; //for deleting the token
     	token = conditions.substr(0, pos);
-    	if(token[0]=='-'){ // case -f -t -d
-    		if(token[1]=='f'){
-    			token.erase(0,2); // erase -f
+    	if(token[0] == '-'){ // case -f -t -d
+    		if(token[1] == 'f'){
+    			token.erase(0, 2); // erase -f
     			query_from_to(token, allID, from);
-    			extra=2+token.length();
-    		}else if(token[1]=='t'){
-    			token.erase(0,2);
+    			extra = 2 + token.length();
+    		}else if(token[1] == 't'){
+    			token.erase(0, 2);
     			query_from_to(token, allID, to);
-    			extra=2+token.length();
-    		}else if(token[1]=='d'){
- 				token.erase(0,2);
- 				extra+=3; 
-    			if(token[0]!='~'){ // has starting date
-    				string delimiter2="~";
-    				size_t pos2=0;
+    			extra = 2 + token.length();
+    		}else if(token[1] == 'd'){
+ 				token.erase(0, 2);
+ 				extra += 3; 
+    			if(token[0] != '~'){ // has starting date
+    				string delimiter2 = "~";
+    				size_t pos2 = 0;
     				pos2=token.find(delimiter2);
-    				string token2=token.substr(0, pos2);
-    				token.erase(0, pos2+delimiter2.length());
-    				num1=stoll(token2);
-    				extra+=token2.length();
-    				if(token=="")
-    					num2=9999;
+    				string token2 = token.substr(0, pos2);
+    				token.erase(0, pos2 + delimiter2.length());
+    				num1 = stoll(token2);
+    				extra += token2.length();
+    				if(token == "")
+    					num2 = 9999;
     				else{
-    					extra+=token.length();
+    					extra += token.length();
     					num2=stoll(token);
     				}
     			}else{
     				token.erase(0,1);
     				num1=0;
-    				if(token=="")
-    					num2=9999;
+    				if(token == "")
+    					num2 = 9999;
     				else{
-    					extra+=token.length();
-    					num2=stoll(token);
+    					extra += token.length();
+    					num2 = stoll(token);
     				}
     			}
     			query_date(num1, num2, allID);
@@ -258,34 +258,34 @@ void query(string &conditions){
 		}
     	conditions.erase(0, delimiter.length()+ extra);
 	}
-	if(conditions[0]=='-'){ // case -f -t -d
-    	if(conditions[1]=='f'){
-    		conditions.erase(0,2); // erase -f
+	if(conditions[0] == '-'){ // case -f -t -d
+    	if(conditions[1] == 'f'){
+    		conditions.erase(0, 2); // erase -f
     		query_from_to(conditions, allID, from);
-    	}else if(conditions[1]=='t'){
-    		conditions.erase(0,2);
+    	}else if(conditions[1] == 't'){
+    		conditions.erase(0, 2);
     		query_from_to(conditions, allID, to);
-    	}else if(conditions[1]=='d'){
+    	}else if(conditions[1] == 'd'){
     		int64_t num1,num2;
-    		conditions.erase(0,2); // erase -d
-    		if(conditions[0]!='~'){ // has starting date
-    			string delimiter2="~";
-    			size_t pos2=0;
-    			pos2=conditions.find(delimiter2);
-    			string conditions2=conditions.substr(0, pos2);
-    			conditions.erase(0, pos2+delimiter2.length());
+    		conditions.erase(0, 2); // erase -d
+    		if(conditions[0] != '~'){ // has starting date
+    			string delimiter2 = "~";
+    			size_t pos2 = 0;
+    			pos2 = conditions.find(delimiter2);
+    			string conditions2 = conditions.substr(0, pos2);
+    			conditions.erase(0, pos2 + delimiter2.length());
     			num1=stoll(conditions2);
-    			if(conditions=="")
-    				num2=9999;
+    			if(conditions == "")
+    				num2 = 9999;
     			else
-    				num2=stoll(conditions);
+    				num2 = stoll(conditions);
     		}else{
-    			conditions.erase(0,1);
-    			num1=0;
-    			if(conditions=="")
-    				num2=9999;
+    			conditions.erase(0, 1);
+    			num1 = 0;
+    			if(conditions == "")
+    				num2 = 9999;
     			else
-    				num2=stoll(conditions);
+    				num2 = stoll(conditions);
 			}
     		query_date(num1, num2, allID);
     	}
