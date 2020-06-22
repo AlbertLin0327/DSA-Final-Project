@@ -7,7 +7,7 @@ using namespace std;
 unordered_map <string, int> months{
 	{"January", 1},
 	{"February", 2},
-	{"March", 2},
+	{"March", 3},
 	{"April", 4},
     {"May", 5},
     {"June", 6},
@@ -29,7 +29,7 @@ unordered_map <char, int> precedence_order{
 // Message-ID as the key
 int total_mail_in_database;
 set <int> exist_mail_id;
-unordered_set <int> proccessed_mail_id;
+//unordered_set <int> proccessed_mail_id;
 
 unordered_map <string, int> route_and_id;
 
@@ -155,7 +155,7 @@ void add(string &route){
 
 	fclose(input);
 
-	date_contruction(year, months[month], day,hour, minute, ID);
+	date_contruction(year, months[month], day, hour, minute, ID);
 
 	//total_mail_length += strlen(sender) + strlen(month) + (day >= 10 ? 2 : 1) + 9 + (int)log10(ID) + 9 + strlen(reciever);
 
@@ -177,7 +177,7 @@ void add(string &route){
 	// Update mail list
 	total_mail_in_database++;
 	exist_mail_id.insert(ID);
-	proccessed_mail_id.insert(ID);
+	//proccessed_mail_id.insert(ID);
 
 	cout << total_mail_in_database << "\n";
 	
@@ -315,7 +315,7 @@ void query_expression(string condition, vector <int> &result){
 	bool ans = 1;
 
 	for(auto c : postfix){
-		//cout << c << "wow";
+		//cout << c << " ";
 		if(c == "!"){
 			vector <int> answer(10000);
 			auto end = set_difference(exist_mail_id.begin(), exist_mail_id.end(), numerator.back().begin(), numerator.back().end(), answer.begin());
@@ -361,6 +361,8 @@ void query(string &name){
 		for(auto i : result)
 			cout << i << " ";
 		cout << endl;*/
+		if(result.empty())
+			break;
 		if(name[i] == '-' && name[i + 1] == 'f'){
             int j = i + 3;
             string from_user;
@@ -447,16 +449,17 @@ int main(){
 		if(mode == "add"){
 			string route; cin >> route;
 			//cout <<"r: " <<  route << endl;
-			/*if(route_and_id.find(route) != route_and_id.end()){
+			if(route_and_id.find(route) != route_and_id.end()){
 				if(exist_mail_id.find(route_and_id[route]) != exist_mail_id.end())
 					cout << "-" << "\n";
 				else{
+					//cout << "hi\n";
 					total_mail_in_database++;
 					cout << total_mail_in_database << endl;
 					exist_mail_id.insert(route_and_id[route]);
 				}
-				
-			}else*/
+			}	
+			else
 				add(route);
 		}else if(mode == "longest"){
 			longest();
