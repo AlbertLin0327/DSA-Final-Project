@@ -30,7 +30,7 @@ unordered_map <char, int> precedence_order{
 int total_mail_in_database;
 set <int> exist_mail_id;
 
-unordered_map <string, int> route_and_id;
+unordered_map <string, int> route_and_id(10000);
 
 // Length as the key, Message-ID as the value
 map <int, set < int > > length_of_mail;
@@ -128,6 +128,7 @@ void parse_and_build_content(int &ID, FILE* &fp){
 		    nowlen++;
 		}
 	} 
+
 	length_of_mail[total_length].insert(ID);
 	return;
 }
@@ -145,6 +146,7 @@ void add(string &route){
 	// parse the field to put the informations into the tree and skip "Subject: "
 	fscanf(input, "From: %s\nDate: %d %s %d at %d:%d\nMessage-ID: %d\nSubject: ", sender, &day, month, &year, &hour, &minute, &ID);
 	route_and_id[route] = ID;
+
 	// Get Subject information
 	parse_and_build_subject(ID, input);
 	
@@ -156,7 +158,7 @@ void add(string &route){
 
 	fclose(input);
 
-	date_contruction(year, months[month], day,hour, minute, ID);
+	date_contruction(year, months[month], day, hour, minute, ID);
 
 	// Add to search tree
 	string message_to;
@@ -186,10 +188,10 @@ inline void remove(int &id){
 	if(exist_mail_id.find(id) != exist_mail_id.end()){
 		total_mail_in_database--;
 		cout << total_mail_in_database << "\n";
+		exist_mail_id.erase(id);
 	}else
 		cout << "-" << "\n";
 
-	exist_mail_id.erase(id);
 	return;
 }
 
@@ -238,6 +240,7 @@ void infix_to_postfix(string &expression, vector <string> &postfix){
 		if(!isalnum(expression[i])){
 			if(expression[i] == '(')
 				operator_stack.push('(');
+
 			else if(expression[i] == ')'){
 				while(!operator_stack.empty() && operator_stack.top() != '('){
 					string str(1, operator_stack.top());
@@ -335,7 +338,6 @@ void query_expression(string condition, vector <int> &result){
 
 	result = answer;
 
-
 	return;
 }
 
@@ -363,7 +365,6 @@ void query(string &name){
                 to_user += tolower(name[j++]);
         	to_user.pop_back();
 
-
             query_from_to(to_user, result, to);
             i = j;            
         }
@@ -386,7 +387,6 @@ void query(string &name){
             int64_t date_int_1 = stoll(date_1);
             int64_t date_int_2 = stoll(date_2);
 
-
             i = j;
             query_date(date_int_1, date_int_2, result); 
         }
@@ -394,6 +394,7 @@ void query(string &name){
             string condition;
             while(i != name.length())
             	condition += tolower(name[i++]);
+
             query_expression(condition, result);
 
             break;
