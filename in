@@ -1,11 +1,14 @@
+longest
 add test_data/mail1
+add test_data/mail1
+query -d200101010101~202002200220 the
+query termincommon
+query terminmail3only
 add test_data/mail2
+query termincommon
+query terminmail2only
+query -d~123401010000 datetooearly
+remove 1
+remove 3
 add test_data/mail3
-add test_data/mail4
-add test_data/mail5
-add test_data/mail6
-add test_data/mail7
-add test_data/mail8
-add test_data/mail9
-add test_data/mail10
-query of
+longest
