@@ -32,6 +32,8 @@ set <int> exist_mail_id;
 
 unordered_map <string, int> route_and_id;
 
+unordered_map <string, int> route_and_id;
+
 // Length as the key, Message-ID as the value
 map <int, set < int > > length_of_mail;
 
@@ -91,9 +93,11 @@ void parse_and_build_subject(int &ID, FILE* &fp){
 	return;
 }
 
+
 void parse_and_build_content(int &ID, FILE* &fp){
 
 	int total_length = 0;
+
 	char word[1000];
 	while(fscanf(fp, "%s", word) != EOF){
 
@@ -152,7 +156,9 @@ void add(string &route){
 	fscanf(input, "To: %s\nContent:\n", reciever);
 
 	// Read and parse content.
+
 	parse_and_build_content(ID, input);
+
 
 	fclose(input);
 
@@ -171,6 +177,7 @@ void add(string &route){
 	to[message_to].insert(ID);
 	from[message_from].insert(ID);
 
+
 	// Update mail list
 	total_mail_in_database++;
 	exist_mail_id.insert(ID);
@@ -182,12 +189,14 @@ void add(string &route){
 
 inline void remove(int &id){
 
+
 	// remove message-id from exists list but don't erase from processed mail-id list
 	if(exist_mail_id.find(id) != exist_mail_id.end()){
 		total_mail_in_database--;
 		cout << total_mail_in_database << "\n";
 	}else
 		cout << "-" << "\n";
+
 
 	exist_mail_id.erase(id);
 	return;
@@ -211,6 +220,7 @@ void longest(){
 		}
 	}
 
+
 	cout << "-" << "\n";
 	// return the longest message
 }
@@ -219,6 +229,13 @@ void longest(){
 inline void query_from_to(string name, vector <int> &result, unordered_map <string, set < int > >& source){
 
 	// find intersection of "from" list and "result"
+	/*cout << "result: ";
+	for(auto i : result)
+		cout << i << " ";
+	cout << endl <<  name << ":";
+	for(auto i : source[name])
+		cout << i << " ";
+	cout << endl;*/
 	vector <int> intersected(10000);
 
 	auto end = set_intersection(result.begin(), result.end(), source[name].begin(), source[name].end(), intersected.begin());
@@ -276,7 +293,9 @@ void infix_to_postfix(string &expression, vector <string> &postfix){
 
 void query_date(int64_t &date1, int64_t &date2, vector<int> &result){
     set<int> record;
+	//cout << "d1: " << date1 << "d2: " << date2 << endl;
     for(auto i : date){
+		//cout << i.first << endl;
         if(i.first > date2)
             break;
         else if(i.first >= date1){
@@ -302,7 +321,6 @@ void query_expression(string condition, vector <int> &result){
 	bool ans = 1;
 
 	for(auto c : postfix){
-
 		if(c == "!"){
 			vector <int> answer(10000);
 			auto end = set_difference(exist_mail_id.begin(), exist_mail_id.end(), numerator.back().begin(), numerator.back().end(), answer.begin());
@@ -343,7 +361,7 @@ void query(string &name){
     vector<int> result(exist_mail_id.begin(), exist_mail_id.end());
 	
     for(int i = 0 ; i < name.length(); i ++){
-      
+
 		if(name[i] == '-' && name[i + 1] == 'f'){
             int j = i + 3;
             string from_user;
@@ -431,16 +449,20 @@ int main(){
 		if(mode == "add"){
 			string route; cin >> route;
 
+
 			if(route_and_id.find(route) != route_and_id.end()){
+
 				if(exist_mail_id.find(route_and_id[route]) != exist_mail_id.end())
 					cout << "-" << "\n";
 				else{
 					total_mail_in_database++;
+
 					cout << total_mail_in_database << "\n";
 					exist_mail_id.insert(route_and_id[route]);
 				}
 			}else
 				add(route);		 
+
 
 		}else if(mode == "longest"){
 			longest();
@@ -448,11 +470,16 @@ int main(){
 			int id; cin >> id;
 			remove(id);
 		}else{
+			//char c;
 			string condition; 
 			condition.reserve(10000);
 			getline(cin, condition, '\n');
+
 			condition.erase(0, 1);
+
 			query(condition);
+
+
 		}
 	}
 
