@@ -145,7 +145,7 @@ void add(string &route){
 
 	// parse the field to put the informations into the tree and skip "Subject: "
 	fscanf(input, "From: %s\nDate: %d %s %d at %d:%d\nMessage-ID: %d\nSubject: ", sender, &day, month, &year, &hour, &minute, &ID);
-	
+	route_and_id[route] = ID;
 	// Get Subject information
 	parse_and_build_subject(ID, input);
 	
