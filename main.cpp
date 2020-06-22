@@ -36,6 +36,7 @@ unordered_map <string, int> route_and_id;
 // Length as the key, Message-ID as the value
 map <int, set < int > > length_of_mail;
 
+
 // Date as the key, Set of Message-ID as the value
 map <int64_t, set < int > > date;
 
@@ -50,6 +51,7 @@ inline void date_contruction(int &Y, int &M, int &D, int &h, int &m, int &ID){
 	date[(int64_t)Y * 100000000 + M * 1000000 + D * 10000 + h * 100 + m].insert(ID);
 	return;
 }
+
 
 void parse_and_build_subject(int &ID, FILE* &fp){
 	char word[1000];
@@ -91,6 +93,7 @@ void parse_and_build_subject(int &ID, FILE* &fp){
 }
 
 void parse_and_build_content(int &ID, FILE* &fp, int &total_length){
+
 	char word[1000];
 	while(fscanf(fp, "%s", word) != EOF){
 
@@ -102,6 +105,7 @@ void parse_and_build_content(int &ID, FILE* &fp, int &total_length){
 		int length = strlen(word);
 		while(nowlen <= length){
 			word[nowlen] = tolower(word[nowlen]);
+
 		    if(nowlen == length || !isalnum(word[nowlen])){
 
 				if(lastlen < nowlen - 1){
@@ -117,6 +121,7 @@ void parse_and_build_content(int &ID, FILE* &fp, int &total_length){
 
 				// update pointer
 				lastlen = nowlen;    
+
 		    }else
 		    	total_length++;
 
@@ -127,13 +132,16 @@ void parse_and_build_content(int &ID, FILE* &fp, int &total_length){
 }
 
 void add(string &route){
+
 	int total_mail_length = 0;
+
 	// input file route
 	FILE* input = fopen(route.c_str(), "rb");
 	
 	// read words into global buffer and count
 	char sender[60], reciever[60], month[15];
 	int year, day, time, hour, minute, ID;
+
 
 	// parse the field to put the informations into the tree and skip "Subject: "
 	fscanf(input, "From: %s\nDate: %d %s %d at %d:%d\nMessage-ID: %d\nSubject: ", sender, &day, month, &year, &hour, &minute, &ID);
@@ -175,11 +183,13 @@ void add(string &route){
 
 	cout << total_mail_in_database << "\n";
 	
+
 	
 	return;
 }
 
 inline void remove(int &id){
+
 
 	// remove message-id from exists list but don't erase from processed mail-id list
 	if(exist_mail_id.find(id) != exist_mail_id.end()){
@@ -187,6 +197,7 @@ inline void remove(int &id){
 		cout << total_mail_in_database << "\n";
 	}else
 		cout << "-" << "\n";
+
 
 	exist_mail_id.erase(id);
 	return;
@@ -210,9 +221,11 @@ void longest(){
 		}
 	}
 
+
 	cout << "-" << "\n";
 	// return the longest message
 }
+
 
 inline void query_from_to(string name, vector <int> &result, unordered_map <string, set < int > >& source){
 
@@ -344,6 +357,7 @@ void query_expression(string condition, vector <int> &result){
 
 	result = answer;
 
+
 	return;
 }
 
@@ -363,15 +377,18 @@ void query(string &name){
                 from_user += tolower(name[j++]);
         	from_user.pop_back();
 			//cout << "name: " << from_user;
+
             query_from_to(from_user, result, from);
             i = j;
         }
         else if(name[i] == '-' && name[i + 1] == 't'){
+
             int j = i + 3;
             string to_user;
             while(name[j] != ' ')
                 to_user += tolower(name[j++]);
         	to_user.pop_back();
+
 
             query_from_to(to_user, result, to);
             i = j;            
@@ -394,6 +411,7 @@ void query(string &name){
             	date_2 = "999999999999";
             int64_t date_int_1 = stoll(date_1);
             int64_t date_int_2 = stoll(date_2);
+
 
             i = j;
             query_date(date_int_1, date_int_2, result); 
@@ -424,6 +442,7 @@ void query(string &name){
     	cout << endl;*/
     }
     return;
+
 }
 
 int main(){
@@ -431,6 +450,7 @@ int main(){
 	// fast I/O and also avoid std::cout << std::endl
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
+
 
 	vector <string> postfix(100);
 	total_mail_in_database = 0;
@@ -440,6 +460,7 @@ int main(){
 	while(cin >> mode){
 		if(mode == "add"){
 			string route; cin >> route;
+
 			cout <<"r: " <<  route << endl;
 			//cout << route_and_id[route];
 			if(route_and_id.find(route) != route_and_id.end()){
@@ -453,6 +474,7 @@ int main(){
 				
 			}else
 				add(route);
+
 		}else if(mode == "longest"){
 			longest();
 		}else if(mode == "remove"){
@@ -467,6 +489,7 @@ int main(){
 			condition.erase(0, 1);
 			//cout << condition << endl;
 			query(condition);
+
 
 		}
 	}
