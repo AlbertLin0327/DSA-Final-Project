@@ -31,6 +31,8 @@ int total_mail_in_database;
 set <int> exist_mail_id;
 unordered_set <int> proccessed_mail_id;
 
+unordered_map <string, int> route_and_id;
+
 // Length as the key, Message-ID as the value
 map <int, set < int > > length_of_mail;
 
@@ -134,40 +136,33 @@ void add(string &route){
 	char sender[60], reciever[60], month[15];
 	int year, day, time, hour, minute, ID;
 
-	char word[60];
-	int shift = 0;
-
 	// parse the field to put the informations into the tree and skip "Subject: "
 	fscanf(input, "From: %s\nDate: %d %s %d at %d:%d\nMessage-ID: %d\nSubject: ", sender, &day, month, &year, &hour, &minute, &ID);
-	total_mail_length += strlen(sender) + strlen(month) + (day >= 10 ? 2 : 1) + 9 + (int)log10(ID);
-	// Escape if this mail is already in the exists mail list
-	if(exist_mail_id.find(ID) != exist_mail_id.end()){
-		cout << "-" << "\n";
-		fclose(input);
-		return;
-	}
-
-	date_contruction(year, day, months[month], hour, minute, ID);
-
+	
 	// Get Subject information
 	parse_and_build_subject(ID, input, total_mail_length);
 	
 	// Read "To: " and skip "Content: "
 	fscanf(input, "To: %s\nContent:\n", reciever);
-	total_mail_length += 9 + strlen(reciever);
 
 	// Read and parse content.
 	parse_and_build_content(ID, input, total_mail_length);
+
+	fclose(input);
+
+	date_contruction(year, day, months[month], hour, minute, ID);
+
+	total_mail_length += strlen(sender) + strlen(month) + (day >= 10 ? 2 : 1) + 9 + (int)log10(ID) + 9 + strlen(reciever);
 
 	// Add to search tree
 	string message_to;
 	string message_from;
 
-	for(auto c : sender)
-		message_to += tolower(c);
+	for(int i = 0; i < strlen(reciever); i++)
+		message_to += tolower(reciever[i]);
 
-	for(auto c : reciever)
-		message_from += tolower(c);
+	for(int i = 0; i < strlen(sender); i++)
+		message_from += tolower(sender[i]);
 
 	to[message_to].insert(ID);
 	from[message_from].insert(ID);
@@ -180,7 +175,7 @@ void add(string &route){
 	proccessed_mail_id.insert(ID);
 
 	cout << total_mail_in_database << "\n";
-	fclose(input);
+	
 	
 	return;
 }
@@ -201,7 +196,6 @@ inline void remove(int &id){
 void longest(){
 	
 	for(auto ptr = length_of_mail.rbegin(); ptr != length_of_mail.rend(); ptr++){
-
 		auto p1 = exist_mail_id.begin();
 		auto p2 = ptr->second.begin();
 
@@ -221,11 +215,11 @@ void longest(){
 	// return the longest message
 }
 
-
 inline void query_from_to(string name, vector <int> &result, unordered_map <string, set < int > >& source){
 
 	// find intersection of "from" list and "result"
 	vector <int> intersected(10000);
+
 	auto end = set_intersection(result.begin(), result.end(), source[name].begin(), source[name].end(), intersected.begin());
 
 	// resize the "result" vector
@@ -333,7 +327,11 @@ void query_expression(string condition, vector <int> &result){
 		}
 	}
 
-	result = numerator.back();
+	vector <int> answer(10000);
+	auto end = set_intersection(numerator.back().begin(), numerator.back().end(), result.begin(), result.end(), answer.begin());
+	answer.resize(end - answer.begin());
+
+	result = answer;
 
 	return;
 }
@@ -348,7 +346,7 @@ void query(string &name){
 
         	while(name[j] != ' ')
                 from_user += tolower(name[j++]);
-        	from_user.back() = '\0';
+        	from_user.pop_back();
       
             query_from_to(from_user, result, from);
             i = j;
@@ -358,7 +356,7 @@ void query(string &name){
             string to_user;
             while(name[j] != ' ')
                 to_user += tolower(name[j++]);
-        	to_user.back() = '\0';
+        	to_user.pop_back();
 
             query_from_to(to_user, result, to);
             i = j;            
@@ -399,9 +397,16 @@ void query(string &name){
     if(result.empty())
     	cout << "-" << "\n";
     else{
-    	for(auto c : result)
+    	for(int i = 0; i < result.size(); i++){
+    		cout << result[i];
+    		if(i == result.size() - 1)
+    			cout << "\n";
+    		else
+    			cout << " ";
+    	}
+    	/*for(auto c : result)
     		cout << c << " ";
-    	cout << endl;
+    	cout << endl;*/
     }
     return;
 }
@@ -420,7 +425,16 @@ int main(){
 	while(cin >> mode){
 		if(mode == "add"){
 			string route; cin >> route;
-			add(route);
+			if(route_and_id.find(route) != route_and_id.end()){
+				if(exist_mail_id.find(route_and_id[route]) != exist_mail_id.end())
+					cout << "-" << "\n";
+				else{
+					total_mail_in_database++;
+					exist_mail_id.insert(route_and_id[route]);
+				}
+				
+			}else
+				add(route);
 		}else if(mode == "longest"){
 			longest();
 		}else if(mode == "remove"){
@@ -435,6 +449,7 @@ int main(){
 
 		}
 	}
+
 
 	return 0;
 }
