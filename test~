@@ -1,0 +1,7 @@
+query -f"winnie" -t"claudia" -d201105020654~ !area|daily
+add ./mail20
+add ./mail20
+query -t"editha" -d201201250114~ park
+query http&well
+add ./mail20
+query of

@@ -28,20 +28,21 @@ unordered_map <char, int> precedence_order{
 
 // Message-ID as the key
 int total_mail_in_database;
-bitset <10010> exist_mail_id;
+set <int> exist_mail_id;
+//unordered_set <int> proccessed_mail_id;
 
 unordered_map <string, int> route_and_id;
 
 // Length as the key, Message-ID as the value
-map <int, set <int> > length_of_mail;
+map <int, set < int > > length_of_mail;
 
 // Date as the key, Set of Message-ID as the value
-map <int64_t, set <int> > date;
+map <int64_t, set < int > > date;
 
 // Name/Keyword as the key, Set of Message-ID as the value
-vector <string> from(10005);
-vector <string> to(10005);
-unordered_map <string, bitset < 10010 > > keyword;
+unordered_map <string, set < int > > from(10000);
+unordered_map <string, set < int > > to(10000);
+unordered_map <string, set < int > > keyword(400000);
 
 inline void date_contruction(int &Y, int &M, int &D, int &h, int &m, int &ID){
 
@@ -55,18 +56,16 @@ void parse_and_build_subject(int &ID, FILE* &fp){
 	
 	int idx = 0;
 	while((word[idx] = fgetc(fp))){
+		word[idx] = tolower(word[idx]);
 
 		if(!isalnum(word[idx])){
 			
-			if(idx != 0){
-				string subject_word(word, idx);
-				keyword[subject_word].set(ID);
-			}
+			string subject_word(word, idx);
+			if(idx != 0)
+				keyword[subject_word].insert(ID);
 			
 			idx = -1;
-		}else
-			word[idx] = tolower(word[idx]);
-
+		}
 		idx++;
 
 		if(word[idx] == '\n')
@@ -75,35 +74,33 @@ void parse_and_build_subject(int &ID, FILE* &fp){
 	return;
 }
 
-void parse_and_build_content(int &ID, FILE* &fp){
+void parse_and_build_content(int &ID, FILE* &fp, int &total_length){
 	char word[60] = {0};
 	
 	int idx = 0, total_length = 0;
 	while((word[idx] = fgetc(fp)) != EOF){
-		
+		word[idx] = tolower(word[idx]);
+
 		if(!isalnum(word[idx])){
-					
-			if(idx != 0){
-				string subject_word(word, idx);
-				keyword[subject_word].set(ID);
-			}
+			
+			string subject_word(word, idx);
+			if(idx != 0)
+				keyword[subject_word].insert(ID);
 			
 			idx = -1;
-		}else{
-			word[idx] = tolower(word[idx]);
+		}else
             total_length++;
-		}
 		idx++;
 
 		if(feof(fp))
 			break;
     }
-
-    length_of_mail[total_length].insert(ID);
+    length_of_mail[total_length].set(ID);
 	return;
 }
 
 void add(string &route){
+	int total_mail_length = 0;
 	// input file route
 	FILE* input = fopen(route.c_str(), "rb");
 	
@@ -112,14 +109,13 @@ void add(string &route){
 	int year, day, time, hour, minute, ID;
 	//if(exist_mail_id.find(ID) != exist_mail_id.end())
 	// parse the field to put the informations into the tree and skip "Subject: "
-
 	fscanf(input, "From: %s\nDate: %d %s %d at %d:%d\nMessage-ID: %d\nSubject: ", sender, &day, month, &year, &hour, &minute, &ID);
-	route_and_id[route] = ID;
-	if(exist_mail_id.test(ID)){
+	if(exist_mail_id.find(ID) != exist_mail_id.end()){
 		cout << "-\n";
 		fclose(input);
 		return;
 	}
+	route_and_id[route] = ID;
 	
 	// Get Subject information
 	parse_and_build_subject(ID, input);
@@ -128,11 +124,13 @@ void add(string &route){
 	fscanf(input, "To: %s\nContent:\n", reciever);
 
 	// Read and parse content.
-	parse_and_build_content(ID, input);
+	parse_and_build_content(ID, input, total_mail_length);
 
 	fclose(input);
 
 	date_contruction(year, months[month], day, hour, minute, ID);
+
+	//total_mail_length += strlen(sender) + strlen(month) + (day >= 10 ? 2 : 1) + 9 + (int)log10(ID) + 9 + strlen(reciever);
 
 	// Add to search tree
 	string message_to;
@@ -146,15 +144,18 @@ void add(string &route){
 	for(int i = 0; i < strlen(sender); i++)
 		message_from += tolower(sender[i]);
 
-	to[ID] = message_to;
-	from[ID] = message_from;
+	to[message_to].insert(ID);
+	from[message_from].insert(ID);
+
+	length_of_mail[total_mail_length].insert(ID);
 
 	// Update mail list
 	total_mail_in_database++;
-	exist_mail_id.set(ID);
+	exist_mail_id.insert(ID);
 	//proccessed_mail_id.insert(ID);
 
 	cout << total_mail_in_database << "\n";
+	
 	
 	return;
 }
@@ -162,39 +163,63 @@ void add(string &route){
 inline void remove(int &id){
 
 	// remove message-id from exists list but don't erase from processed mail-id list
-	if(exist_mail_id.test(id)){
+	if(exist_mail_id.find(id) != exist_mail_id.end()){
 		total_mail_in_database--;
 		cout << total_mail_in_database << "\n";
-		exist_mail_id.reset(id);
 	}else
-		cout << "-\n";
+		cout << "-" << "\n";
 
+	exist_mail_id.erase(id);
 	return;
 }
 
-inline void longest(){	
+void longest(){
 	
 	for(auto ptr = length_of_mail.rbegin(); ptr != length_of_mail.rend(); ptr++){
-        for(auto c : ptr->second)
-        	if(exist_mail_id.test(c)){
-        		cout << c << " " << ptr->first << "\n";
-        		return;
-        	}
+		auto p1 = exist_mail_id.begin();
+		auto p2 = ptr->second.begin();
 
-    }
+		while(p1 != exist_mail_id.end() && p2 != ptr->second.end()){
+
+			if(*p1 == *p2){
+				cout << *p1 << " " << ptr->first << "\n";
+				return;
+			}else if(*p1 > *p2)
+				p2++;
+			else
+				p1++;
+		}
+	}
+
 	cout << "-" << "\n";
-	return;
 	// return the longest message
 }
 
-inline void query_from_to(string &name, bitset <10010> &result, vector <string> &source){
-	bitset<10010> record;
-	for(int i = result._Find_first(); i <= 10000; i = result._Find_next(i)){
-		if(source[i] == name)
-			record[i] = 1;
-	}
+inline void query_from_to(string name, vector <int> &result, unordered_map <string, set < int > >& source){
 
-	result = record;
+	// find intersection of "from" list and "result"
+	/*cout << "result: ";
+	for(auto i : result)
+		cout << i << " ";
+	cout << endl <<  name << ":";
+	for(auto i : source[name])
+		cout << i << " ";
+	cout << endl;*/
+	/*if(&source == &from){
+		vector<int> temp(source[name].begin(), source[name].end());
+		result = temp;
+		return;
+	}*/
+
+	vector <int> intersected(10000);
+
+
+	auto end = set_intersection(result.begin(), result.end(), source[name].begin(), source[name].end(), intersected.begin());
+
+	// resize the "result" vector
+	intersected.resize(end - intersected.begin());
+	result = intersected;
+
 	return;
 }
 
@@ -242,25 +267,28 @@ void infix_to_postfix(string &expression, vector <string> &postfix){
 	return;
 }
 
-void query_date(int64_t &date1, int64_t &date2, bitset<10010> &result){
-    bitset<10010> record;
+void query_date(int64_t &date1, int64_t &date2, vector<int> &result){
+    set<int> record;
     for(auto i : date){
 		//cout << i.first << endl;
         if(i.first > date2)
             break;
         else if(i.first >= date1){
-            for(auto c : i.second)
-            	if(result[c])
-            		record[c] = 1;
+            for(auto j : date[i.first])
+                record.insert(j);
         }
     }
-    result &= record;
+
+    vector<int> intersected(10000); 
+    vector<int> ::iterator t = set_intersection(record.begin(), record.end(), result.begin(), result.end(), intersected.begin());
+    intersected.resize(t - intersected.begin());
+    result = intersected;
     return ;
 }
 
-void query_expression(string &condition, bitset <10010> &result){
+void query_expression(string condition, vector <int> &result){
 
-	vector < bitset<10010> > numerator;
+	vector < vector <int> > numerator;
 
 	vector <string> postfix;
 	infix_to_postfix(condition, postfix);
@@ -270,35 +298,51 @@ void query_expression(string &condition, bitset <10010> &result){
 	for(auto c : postfix){
 		//cout << c << " ";
 		if(c == "!"){
-			bitset <10010> answer = exist_mail_id & (exist_mail_id ^ numerator.back());
+			vector <int> answer(10000);
+			auto end = set_difference(exist_mail_id.begin(), exist_mail_id.end(), numerator.back().begin(), numerator.back().end(), answer.begin());
+			answer.resize(end - answer.begin());
 			numerator.pop_back();
 			numerator.push_back(answer);
 		}else if(c == "&"){
-			bitset <10010> answer = numerator.back() & numerator[numerator.size() - 2];
+			vector <int> answer(10000);
+			auto end = set_intersection(numerator.back().begin(), numerator.back().end(), numerator[numerator.size() - 2].begin(), numerator[numerator.size() - 2].end(), answer.begin());
+			answer.resize(end - answer.begin());
 			numerator.pop_back();
 			numerator.pop_back();
 			numerator.push_back(answer);
 		}else if(c == "|"){
-			bitset <10010> answer = numerator.back() | numerator[numerator.size() - 2];
+			vector <int> answer(10000);
+			auto end = set_union(numerator.back().begin(), numerator.back().end(), numerator[numerator.size() - 2].begin(), numerator[numerator.size() - 2].end(), answer.begin());
+			answer.resize(end - answer.begin());
 			numerator.pop_back();
 			numerator.pop_back();
 			numerator.push_back(answer);
 		}else{
-			bitset <10010> answer = keyword[c];
+			vector <int> answer(keyword[c].begin(), keyword[c].end());
+			//for(int i = 0; i < answer.size(); i ++)
+			//	cout << answer[i] << " " ;
 			numerator.push_back(answer);
 		}
 	}
 
-	result &= numerator.back();
+	vector <int> answer(10000);
+	auto end = set_intersection(numerator.back().begin(), numerator.back().end(), result.begin(), result.end(), answer.begin());
+	answer.resize(end - answer.begin());
+
+	result = answer;
 
 	return;
 }
 
 void query(string &name){
-    bitset<10010> result = exist_mail_id;
+    vector<int> result(exist_mail_id.begin(), exist_mail_id.end());
 	
     for(int i = 0 ; i < name.length(); i ++){
-		if(result.none())
+        /*cout << name[i] << endl;
+		for(auto i : result)
+			cout << i << " ";
+		cout << endl;*/
+		if(result.empty())
 			break;
 		if(name[i] == '-' && name[i + 1] == 'f'){
             int j = i + 3;
@@ -307,6 +351,7 @@ void query(string &name){
         	while(name[j] != ' ')
                 from_user += tolower(name[j++]);
         	from_user.pop_back();
+			//cout << "name: " << from_user;
             query_from_to(from_user, result, from);
             i = j;
         }
@@ -346,30 +391,29 @@ void query(string &name){
         }
         else{
             string condition;
-			condition.reserve(1000);
+			condition.reserve(10000);
             while(i != name.length())
             	condition += tolower(name[i++]);
+			//cout << "exp: " <<condition << endl;
             query_expression(condition, result);
 
             break;
         }
     }
 
-    if(result.none())
+    if(result.empty())
     	cout << "-\n";
     else{
-        int count = 0;
-    	for(int i = 1; i <= 10000; i++){
-    		if(result[i]){
-                cout << i;
-                count++;
-                if(count == result.count())
-                    cout << "\n";
-                else
-                    cout << " ";
-            }
-            
+    	for(int i = 0; i < result.size(); i++){
+    		cout << result[i];
+    		if(i == result.size() - 1)
+    			cout << "\n";
+    		else
+    			cout << " ";
     	}
+    	/*for(auto c : result)
+    		cout << c << " ";
+    	cout << endl;*/
     }
     return;
 }
@@ -380,7 +424,7 @@ int main(){
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 
-	//vector <string> postfix(100);
+	vector <string> postfix(100);
 	total_mail_in_database = 0;
 	// reserve space from the data structure
 
@@ -388,35 +432,35 @@ int main(){
 	while(cin >> mode){
 		if(mode == "add"){
 			string route; cin >> route;
+			//cout <<"r: " <<  route << endl;
 			if(route_and_id.find(route) != route_and_id.end()){
-				if(exist_mail_id.test(route_and_id[route]))
-					cout << "-" << "\n";
+				if(exist_mail_id.find(route_and_id[route]) != exist_mail_id.end())
+					cout << "-\n";
 				else{
+					//cout << "hi\n";
 					total_mail_in_database++;
-					cout << total_mail_in_database << "\n";
-					exist_mail_id.set(route_and_id[route]);
+					cout << total_mail_in_database << endl;
+					exist_mail_id.insert(route_and_id[route]);
 				}
 			}	
 			else
 				add(route);
 		}else if(mode == "longest"){
-			if(exist_mail_id.none())
-				cout << "-" << "\n";
-			else
-				longest();
+			longest();
 		}else if(mode == "remove"){
 			int id; cin >> id;
 			remove(id);
 		}else{
+			//char c;
 			string condition; 
-			condition.reserve(1000);
-			cin.get();
+			condition.reserve(10000);
 			getline(cin, condition, '\n');
-
+			//cout << condition << endl;
+			condition.erase(0, 1);
+			//cout << condition << endl;
 			query(condition);
 
 		}
-        cout << flush;
 	}
 
 
