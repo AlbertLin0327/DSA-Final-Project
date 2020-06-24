@@ -1,0 +1,100 @@
+query -f"winnie" -t"claudia" -d201105020654~ !area|daily
+add test_data/mail20
+add test_data/mail20
+query -t"editha" -d201201250114~ park
+query http&well
+add test_data/mail20
+query -d201105020654~ classification&private&players&bob&!cincinnati|(paragraph&!website)|!the
+add test_data/mail29
+query 15198n
+query ide&release&!known|march
+add test_data/mail24
+query of
+query -d201112261411~ read|!are
+query team
+add test_data/mail30
+query -f"isaiah" -t"cherry" and&!s&vine
+add test_data/mail17
+query -f"martin" on
+add test_data/mail30
+query -t"john" -d201112261411~ train
+add test_data/mail4
+add test_data/mail28
+remove 5
+add test_data/mail18
+query minor&professor|(!through|g)&(!to&southwest)
+remove 19
+query -f"martin" -d200911080427~ ide
+query -t"spark" -d201202211100~ cards
+add test_data/mail27
+query -f"karen" -t"silvia" -d201111121740~ !org
+query -f"martin" -t"edison" year|who&!cards
+query -t"chelsea" -d201205101859~201206061049 was
+add test_data/mail22
+add test_data/mail18
+query -f"connie" -t"chelsea" -d~201204202120 kokkola
+query -f"isaiah" -t"molly" at
+add test_data/mail8
+add test_data/mail10
+remove 30
+remove 17
+add test_data/mail27
+remove 9
+add test_data/mail25
+add test_data/mail9
+add test_data/mail12
+add test_data/mail12
+query -f"patricia" -d201205101859~ archaisms|public
+query -f"marvin" pakistan
+query -f"lassie" -t"john" paragraph&!hemisphere
+add test_data/mail14
+remove 24
+query -f"patricia" -t"editha" -d~201203251233 where
+query -t"silvia" org
+remove 14
+add test_data/mail7
+query -t"hank" !borngen
+add test_data/mail17
+add test_data/mail23
+remove 12
+remove 8
+add test_data/mail3
+add test_data/mail1
+query -f"patricia" -d201205081643~ 991|reserve
+add test_data/mail3
+query -f"teresa" -t"hank" -d201105191650~ tearn
+query needed
+query -f"vanessa" -t"silvia" carved|made&g|!authority
+query -f"lorin" -d201203080513~ capital
+add test_data/mail6
+remove 7
+remove 10
+add test_data/mail8
+add test_data/mail16
+remove 14
+remove 21
+remove 9
+query -f"michelle" -t"allison" -d201107221105~201204202120 2
+remove 17
+query -f"connie" wikipedia&copies
+remove 4
+query -f"connie" -t"bill" follows
+query -f"teresa" -t"allison" !string
+add test_data/mail4
+remove 4
+add test_data/mail3
+remove 18
+query !w
+remove 3
+add test_data/mail23
+query -t"cassie" -d200911080427~ these&authority
+remove 23
+query -f"carrie" -d201203240031~201204071357 !public
+add test_data/mail28
+add test_data/mail13
+query -f"liz" -d201205281324~ earlier&silver&own&pittsburgh
+add test_data/mail11
+remove 25
+remove 30
+remove 4
+remove 3
