@@ -1,7 +1,0 @@
-CPPOPTION = -std=c++17 -L/usr/local/Cellar/gcc/9.3.0_1/include/c++/9.3.0 -O2
-
-target: main.cpp
-	g++ $(CPPOPTION) main.cpp -o run
-	
-clean:
-	rm -rf run
